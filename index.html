@@ -240,31 +240,18 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            We present the first method capable of photorealistically reconstructing a non-rigidly
-            deforming scene using photos/videos captured casually from mobile phones.
+          Recent advances in text-to-video (T2V) generation have enabled the synthesis of visually convincing and spatiotemporally consistent short clips. 
+          However, current models often fail to depict coherent, multi-step actions and extended storylines. 
+          Existing benchmarks primarily focus on perceptual quality—such as fidelity and spatial coherence—while overlooking the crucial dimensions of temporal ordering and logical transitions across consecutive events. 
+          To address this gap, we introduce <span style="font-weight: bold;">T-C3Bench</span>, a new benchmark specifically designed to evaluate and foster temporal-causal and multi-consecutive action generation. 
+          T-C3Bench provides diverse prompts spanning six scenario types, each requiring 2–4 consecutive actions, where each subsequent action depends on the completion or state change resulting from its predecessor.
+          By emphasizing object interaction, smooth transitions, and temporal context preservation, T-C3Bench challenges models to produce natural progressions rather than abrupt or arbitrary action jumps.
           </p>
           <p>
-            Our approach augments neural radiance fields
-            (NeRF) by optimizing an
-            additional continuous volumetric deformation field that warps each observed point into a
-            canonical 5D NeRF.
-            We observe that these NeRF-like deformation fields are prone to local minima, and
-            propose a coarse-to-fine optimization method for coordinate-based models that allows for
-            more robust optimization.
-            By adapting principles from geometry processing and physical simulation to NeRF-like
-            models, we propose an elastic regularization of the deformation field that further
-            improves robustness.
-          </p>
-          <p>
-            We show that <span class="dnerf">Nerfies</span> can turn casually captured selfie
-            photos/videos into deformable NeRF
-            models that allow for photorealistic renderings of the subject from arbitrary
-            viewpoints, which we dub <i>"nerfies"</i>. We evaluate our method by collecting data
-            using a
-            rig with two mobile phones that take time-synchronized photos, yielding train/validation
-            images of the same pose at different viewpoints. We show that our method faithfully
-            reconstructs non-rigidly deforming scenes and reproduces unseen views with high
-            fidelity.
+          Through both automated metrics (e.g., fidelity and causal consistency) and human-based evaluations,
+          T-C3Bench rigorously assesses whether a generated video maintains logical coherence and natural transitions across consecutive events.
+          Our empirical studies of state-of-the-art T2V models reveal significant shortcomings in handling extended action sequences, including abrupt scene shifts and inconsistent object states.
+          We hope that T-C3Bench catalyzes future research on story-driven video generation, pushing the field beyond high-quality static frames toward fully coherent, multi-step narratives.
           </p>
         </div>
       </div>
