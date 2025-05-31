@@ -118,7 +118,11 @@
           style="width: 100%; height: auto;"
         >
         <figcaption>
-          XXX add some description here.
+          Examples of sequential narrative generation failures in current T2V models.
+          Each row demonstrates a specific failure mode: State Consistency (nurse's clothing color changes), 
+          Order Sequencing (guard rescues before running), 
+          Multi-subject Interaction (wrong subject performs action), 
+          and Temporal Dependencies (incorrect liquid color transitions). 
         </figcaption>
       </figure>
     </div>
@@ -192,21 +196,20 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-          Recent advances in text-to-video (T2V) generation have enabled the synthesis of visually convincing and spatiotemporally consistent short clips. 
-          However, current models often fail to depict coherent, multi-step actions and extended storylines. 
-          Existing benchmarks primarily focus on perceptual quality—such as fidelity and spatial coherence—while overlooking the crucial dimensions of temporal ordering and logical transitions across consecutive events. 
+          Text-to-video (T2V) generation models have made significant progress in creating visually appealing videos. 
+          However, they struggle with generating coherent sequential narratives that require logical progression through multiple events. 
+          Existing T2V benchmarks primarily focus on visual quality metrics but fail to evaluate narrative coherence over extended sequences.
           </p>
           <p>
-          To address this gap, we introduce <span style="font-weight: bold;">T-C3Bench</span>, a new benchmark specifically designed to evaluate and foster temporal-causal and multi-consecutive action generation. 
-          T-C3Bench provides diverse prompts spanning six scenario types, each requiring 2–4 consecutive actions, where each subsequent action depends on the completion or state change resulting from its predecessor.
-          By emphasizing object interaction, smooth transitions, and temporal context preservation, T-C3Bench challenges models to produce natural progressions rather than abrupt or arbitrary action jumps.
-          </p>
-          <p>
-          Through both automated metrics (e.g., fidelity and causal consistency) and human-based evaluations,
-          T-C3Bench rigorously assesses whether a generated video maintains logical coherence and natural transitions across consecutive events.
-          Our empirical studies of state-of-the-art T2V models reveal significant shortcomings in handling extended action sequences, including abrupt scene shifts and inconsistent object states.
-          We hope that T-C3Bench catalyzes future research on story-driven video generation, pushing the field beyond high-quality static frames toward fully coherent, multi-step narratives.
-          </p>
+          To bridge this gap, we present <span style="font-weight: bold;">SeqBench</span>, a comprehensive benchmark for evaluating sequential narrative coherence in T2V generation.
+          SeqBench includes a carefully designed dataset of 320 prompts spanning various narrative complexities, with 2,560 human-annotated videos generated from 8 state-of-the-art T2V models. 
+          Additionally, we design a Dynamic Temporal Graphs (DTG)-based automatic evaluation metric, 
+          which can efficiently capture long-range dependencies and temporal ordering while maintaining computational efficiency.
+          Our DTG-based metric demonstrates a strong correlation with human annotations. Through systematic evaluation using SeqBench, 
+          we reveal critical limitations in current T2V models: failure to maintain consistent object states across multi-action sequences, 
+          physically implausible results in multi-object scenarios, and difficulties in preserving realistic timing and ordering relationships between sequential actions. 
+          SeqBench provides the first systematic framework for evaluating narrative coherence in T2V generation and offers concrete insights for improving sequential reasoning capabilities in future models.
+            </p>
         </div>
       </div>
     </div>
