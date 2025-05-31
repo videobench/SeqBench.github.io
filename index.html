@@ -130,64 +130,6 @@
 </section>
 
 
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-steve">
-          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/steve.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-chair-tp">
-          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/chair-tp.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-shiba">
-          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/shiba.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-fullbody">
-          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/fullbody.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-blueshirt">
-          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/blueshirt.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-mask">
-          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/mask.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-coffee">
-          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/coffee.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-toby">
-          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/toby2.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
 <section class="section">
   <div class="container is-max-desktop">
     <!-- Abstract. -->
@@ -205,11 +147,13 @@
           SeqBench includes a carefully designed dataset of 320 prompts spanning various narrative complexities, with 2,560 human-annotated videos generated from 8 state-of-the-art T2V models. 
           Additionally, we design a Dynamic Temporal Graphs (DTG)-based automatic evaluation metric, 
           which can efficiently capture long-range dependencies and temporal ordering while maintaining computational efficiency.
-          Our DTG-based metric demonstrates a strong correlation with human annotations. Through systematic evaluation using SeqBench, 
-          we reveal critical limitations in current T2V models: failure to maintain consistent object states across multi-action sequences, 
+          Our DTG-based metric demonstrates a strong correlation with human annotations. 
+          </p>
+          <p>
+          Through systematic evaluation using SeqBench, we reveal critical limitations in current T2V models: failure to maintain consistent object states across multi-action sequences, 
           physically implausible results in multi-object scenarios, and difficulties in preserving realistic timing and ordering relationships between sequential actions. 
           SeqBench provides the first systematic framework for evaluating narrative coherence in T2V generation and offers concrete insights for improving sequential reasoning capabilities in future models.
-            </p>
+          </p>
         </div>
       </div>
     </div>
