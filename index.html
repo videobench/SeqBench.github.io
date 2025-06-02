@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="SeqBench is a comprehensive benchmark for evaluating sequential narrative coherence in Text-to-Video (T2V) generation, including a dataset of 320 prompts and a novel DTG-based automatic evaluation metric.">
-  <meta name="keywords" content="Video Generation, Text to Video, Video Benchmarking, Sequential Narrative Coherence, T2V Evaluation">
+        content="SeqBench: A comprehensive benchmark for evaluating sequential narrative coherence in text-to-video generation models.">
+  <meta name="keywords" content="text-to-video, video generation, benchmark, sequential narrative, temporal coherence, T2V models">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SeqBench: Benchmarking Sequential Narrative Generation in Text-to-Video Models</title>
 
+  <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -24,23 +25,229 @@
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
 
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.svg">
+  
+  <style>
+    .publication-title {
+      font-family: 'Google Sans', sans-serif;
+    }
+    
+    .hero.teaser {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    
+    .teaser .hero-body {
+      padding: 3rem 1.5rem;
+    }
+    
+    .result-table {
+      margin: 2rem 0;
+      overflow-x: auto;
+    }
+    
+    .result-table table {
+      font-size: 0.85rem;
+    }
+    
+    .methodology-step {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      border-left: 4px solid #3273dc;
+    }
+    
+    .dataset-category {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .metric-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    
+    @media (max-width: 768px) {
+      .metric-comparison {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .highlight-number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #3273dc;
+    }
+    
+    .failure-mode {
+      background: #fff5f5;
+      border: 1px solid #fed7d7;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 0.5rem 0;
+    }
+    
+    .performance-card {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    
+    .performance-card:hover {
+      transform: translateY(-2px);
+    }
+    
+    .best-score {
+      background: #e8f5e8;
+      font-weight: bold;
+    }
+    
+    .figure-container {
+      text-align: center;
+      margin: 2rem 0;
+    }
+    
+    .figure-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+    
+    .video-gallery {
+      background: #f8f9fa;
+      padding: 2rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+    }
+    
+    .filter-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+    
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      border: 2px solid #3273dc;
+      background: white;
+      color: #3273dc;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .filter-btn:hover, .filter-btn.active {
+      background: #3273dc;
+      color: white;
+    }
+    
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .video-card {
+      background: white;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    
+    .video-card:hover {
+      transform: translateY(-2px);
+    }
+    
+    .video-placeholder {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .video-placeholder::before {
+      content: "📹";
+      font-size: 3rem;
+      opacity: 0.5;
+    }
+    
+    .video-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    
+    .video-tag {
+      background: #e3f2fd;
+      color: #1976d2;
+      padding: 0.2rem 0.5rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+    }
+    
+    .human-eval-section {
+      background: #f8f9fa;
+      padding: 2rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+    }
+    
+    .eval-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+    
+    .eval-table {
+      overflow-x: auto;
+      background: white;
+      border-radius: 8px;
+      padding: 1rem;
+    }
+    
+    .eval-table table {
+      font-size: 0.8rem;
+    }
+    
+    .model-row {
+      border-left: 4px solid #3273dc;
+    }
+    
+    .category-header {
+      background: #e3f2fd;
+      font-weight: bold;
+    }
+  </style>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
 </head>
 <body>
-
 
 <section class="hero">
   <div class="hero-body">
@@ -49,19 +256,18 @@
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">SeqBench: Benchmarking Sequential Narrative Generation in Text-to-Video Models</h1>
           <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              Anonymous Author</a><sup>1</sup>,</span>
+            <span class="author-block">Anonymous Authors</span>
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>Anonymous Institute</span>
+            <span class="author-block">Anonymous Institute</span>
           </div>
 
           <div class="column has-text-centered">
             <div class="publication-links">
+              <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                   class="external-link button is-normal is-rounded is-dark">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
                   </span>
@@ -69,33 +275,33 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                   class="external-link button is-normal is-rounded is-dark">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
                   </span>
                   <span>arXiv</span>
                 </a>
               </span>
+              <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                   class="external-link button is-normal is-rounded is-dark">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
                   <span>Code</span>
                   </a>
               </span>
+              <!-- Dataset Link. -->
               <span class="link-block">
                 <a href="https://huggingface.co/datasets/AcmmmVideobench/Acmmm2025_video_benchmark"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="far fa-images"></i>
                   </span>
-                  <span>Data</span>
+                  <span>Dataset</span>
                   </a>
+              </span>
             </div>
-
           </div>
         </div>
       </div>
@@ -106,28 +312,22 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <figure style="margin: 0; text-align: center;">
-        <img
-          id="main_fig"
-          src="./static/images/main_fig.jpg"
-          alt="Examples of sequential narrative generation failures in T2V models."
-          style="width: 100%; height: auto;"
-        >
-        <figcaption>
-          Examples of sequential narrative generation failures in current T2V models.
-          Each row demonstrates a specific failure mode: State Consistency (nurse's clothing color changes), 
-          Order Sequencing (guard rescues before running), 
-          Multi-subject Interaction (wrong subject performs action), 
-          and Temporal Dependencies (incorrect liquid color transitions). 
+      <div class="figure-container">
+        <!-- 替换为实际的主图 -->
+        <img src="./static/images/main_fig.jpg" alt="Sequential narrative generation failures in current T2V models" 
+             style="max-width: 100%; background: white; padding: 1rem; border-radius: 12px;">
+        <figcaption style="margin-top: 1rem; color: white; font-size: 1.1rem;">
+          Examples of sequential narrative generation failures in current T2V models. 
+          Each type demonstrates specific failure modes that SeqBench is designed to detect and evaluate.
         </figcaption>
-      </figure>
+      </div>
     </div>
   </div>
 </section>
 
-
 <section class="section">
   <div class="container is-max-desktop">
+    <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
@@ -152,31 +352,510 @@
         </div>
       </div>
     </div>
-    </section>
+  </div>
+</section>
 
+<!-- Dataset Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-3 has-text-centered">Dataset Overview</h2>
+        
+        <div class="columns">
+          <div class="column is-half">
+            <div class="dataset-category">
+              <h4 class="title is-4">Key Statistics</h4>
+              <div class="columns is-multiline">
+                <div class="column is-half has-text-centered">
+                  <div class="highlight-number">320</div>
+                  <p>Carefully Designed Prompts</p>
+                </div>
+                <div class="column is-half has-text-centered">
+                  <div class="highlight-number">2,560</div>
+                  <p>Human-Annotated Videos</p>
+                </div>
+                <div class="column is-half has-text-centered">
+                  <div class="highlight-number">8</div>
+                  <p>State-of-the-art T2V Models</p>
+                </div>
+                <div class="column is-half has-text-centered">
+                  <div class="highlight-number">4</div>
+                  <p>Content Categories</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="column is-half">
+            <div class="dataset-category">
+              <h4 class="title is-4">Content Categories</h4>
+              <div class="content">
+                <p><strong>🐾 Animal:</strong> Animal behaviors and interactions, from simple locomotion to complex predatory behaviors</p>
+                <p><strong>👤 Human:</strong> Human activities across various contexts, from daily routines to social interactions</p>
+                <p><strong>📦 Object:</strong> Inanimate objects and their transformations, movements, or interactions</p>
+                <p><strong>✨ Imaginary:</strong> Fantastical, supernatural, or stylized content beyond realistic constraints</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
+        <div class="columns">
+          <div class="column">
+            <div class="dataset-category">
+              <h4 class="title is-4">Difficulty Levels</h4>
+              <div class="columns is-multiline">
+                <div class="column is-half">
+                  <p><strong>SSSA:</strong> Single Subject-Single Action</p>
+                  <p><strong>SSMA:</strong> Single Subject-Multi Action</p>
+                </div>
+                <div class="column is-half">
+                  <p><strong>MSSA:</strong> Multi Subject-Single Action</p>
+                  <p><strong>MSMA:</strong> Multi Subject-Multi Action</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="column">
+            <div class="dataset-category">
+              <h4 class="title is-4">Temporal Orders</h4>
+              <div class="content">
+                <p><strong>SS:</strong> Strictly Sequential - Actions follow predetermined logical sequence</p>
+                <p><strong>FO:</strong> Flexible Order - Actions can occur in varying orders while maintaining coherence</p>
+                <p><strong>SI:</strong> Simultaneous - Concurrent actions testing parallel process coordination</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- Methodology Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-3 has-text-centered">Dynamic Temporal Graph (DTG) Evaluation</h2>
+        
+        <!-- DTG Method Figure -->
+        <div class="figure-container">
+          <img src="./static/images/dtg_method.jpg" alt="Dynamic Temporal Graph evaluation framework" 
+               style="max-width: 100%;">
+          <figcaption style="margin-top: 1rem; color: #666; font-size: 1rem;">
+            Overview of the Dynamic Temporal Graph (DTG) evaluation framework showing temporal decomposition, 
+            adaptive graph extraction, and dependency filtering processes.
+          </figcaption>
+        </div>
+        
+        <div class="content has-text-centered">
+          <p class="is-size-5">Our evaluation framework assesses videos across two complementary dimensions</p>
+        </div>
+
+        <div class="metric-comparison">
+          <div class="performance-card">
+            <h4 class="title is-4">📊 Visual Details Evaluation</h4>
+            <div class="content">
+              <p>Assesses visual quality, object fidelity, and scene composition using frame-level analysis</p>
+              <ul style="text-align: left;">
+                <li>Frame-level scene graph extraction</li>
+                <li>Object presence and attribute correctness</li>
+                <li>Spatial relationship accuracy</li>
+                <li>Scene composition quality</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="performance-card">
+            <h4 class="title is-4">🎬 Narrative Coherence Evaluation</h4>
+            <div class="content">
+              <p>Measures temporal consistency and sequential logic using Dynamic Temporal Graphs</p>
+              <ul style="text-align: left;">
+                <li>Temporal decomposition</li>
+                <li>Dynamic graph extraction</li>
+                <li>Question-aware feature emphasis</li>
+                <li>Dependency filtering</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="methodology-step">
+          <h4 class="title is-4">🔍 Key Innovation: Adaptive Graph Extraction</h4>
+          <div class="content">
+            <p>Traditional scene graph extraction uses static templates that may miss narrative-specific details. Our <strong>Dynamic Temporal Graph</strong> approach:</p>
+            <ul>
+              <li><strong>Dynamic Prompt Generation:</strong> Customizes graph extraction prompts based on specific evaluation questions</li>
+              <li><strong>Question-aware Feature Emphasis:</strong> Prioritizes tracking of exact features needed for accurate evaluation</li>
+              <li><strong>Multi-frame Analysis:</strong> Extracts scene graphs from 15 distributed frames using adapted prompts</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Video Gallery Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Video Examples Gallery</h2>
+    
+    <div class="video-gallery">
+      <div class="content has-text-centered">
+        <p class="is-size-5">Explore video examples categorized by content type, difficulty level, and model performance</p>
+      </div>
+      
+      <div class="filter-controls">
+        <button class="filter-btn active" data-filter="all">All Videos</button>
+        <button class="filter-btn" data-filter="animal">🐾 Animal</button>
+        <button class="filter-btn" data-filter="human">👤 Human</button>
+        <button class="filter-btn" data-filter="object">📦 Object</button>
+        <button class="filter-btn" data-filter="imaginary">✨ Imaginary</button>
+        <button class="filter-btn" data-filter="sssa">SSSA</button>
+        <button class="filter-btn" data-filter="ssma">SSMA</button>
+        <button class="filter-btn" data-filter="mssa">MSSA</button>
+        <button class="filter-btn" data-filter="msma">MSMA</button>
+      </div>
+      
+      <div class="video-grid" id="videoGrid">
+        <!-- Video examples will be populated here -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Results Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Experimental Results</h2>
+    
+    <div class="content has-text-centered">
+      <p class="is-size-5">Evaluation of 8 state-of-the-art T2V models reveals significant gaps between visual quality and narrative coherence</p>
+    </div>
+
+    <!-- Visual Details Results -->
+    <div class="result-table">
+      <h3 class="title is-4">Visual Details Evaluation Results</h3>
+      <div style="overflow-x: auto;">
+        <table class="table is-striped is-fullwidth">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>SSMA_SS</th>
+              <th>SSMA_FO</th>
+              <th>SSMA_SI</th>
+              <th>MSMA_SS</th>
+              <th>MSMA_FO</th>
+              <th>MSMA_SI</th>
+              <th>SSSA</th>
+              <th>MSSA</th>
+              <th>Avg. Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Kling 2.0</strong></td>
+              <td class="best-score">0.819</td>
+              <td class="best-score">0.839</td>
+              <td class="best-score">0.823</td>
+              <td>0.693</td>
+              <td class="best-score">0.734</td>
+              <td class="best-score">0.713</td>
+              <td>0.774</td>
+              <td class="best-score">0.804</td>
+              <td class="best-score">0.775</td>
+            </tr>
+            <tr>
+              <td><strong>Cogvideo 1.5</strong></td>
+              <td>0.806</td>
+              <td>0.817</td>
+              <td>0.814</td>
+              <td class="best-score">0.700</td>
+              <td>0.718</td>
+              <td>0.711</td>
+              <td class="best-score">0.780</td>
+              <td>0.789</td>
+              <td>0.767</td>
+            </tr>
+            <tr>
+              <td><strong>Hailuo T2V-01</strong></td>
+              <td>0.812</td>
+              <td>0.826</td>
+              <td>0.758</td>
+              <td>0.654</td>
+              <td>0.659</td>
+              <td>0.650</td>
+              <td>0.771</td>
+              <td>0.780</td>
+              <td>0.739</td>
+            </tr>
+            <tr>
+              <td><strong>Pika 2.2</strong></td>
+              <td>0.757</td>
+              <td>0.762</td>
+              <td>0.721</td>
+              <td>0.565</td>
+              <td>0.676</td>
+              <td>0.595</td>
+              <td>0.710</td>
+              <td>0.733</td>
+              <td>0.690</td>
+            </tr>
+            <tr>
+              <td><strong>Sora</strong></td>
+              <td>0.737</td>
+              <td>0.764</td>
+              <td>0.750</td>
+              <td>0.549</td>
+              <td>0.591</td>
+              <td>0.608</td>
+              <td>0.699</td>
+              <td>0.693</td>
+              <td>0.674</td>
+            </tr>
+            <tr>
+              <td><strong>Luma Ray2</strong></td>
+              <td>0.684</td>
+              <td>0.681</td>
+              <td>0.724</td>
+              <td>0.518</td>
+              <td>0.608</td>
+              <td>0.543</td>
+              <td>0.721</td>
+              <td>0.676</td>
+              <td>0.644</td>
+            </tr>
+            <tr>
+              <td><strong>Veo 2.0</strong></td>
+              <td>0.482</td>
+              <td>0.585</td>
+              <td>0.595</td>
+              <td>0.523</td>
+              <td>0.517</td>
+              <td>0.476</td>
+              <td>0.627</td>
+              <td>0.578</td>
+              <td>0.548</td>
+            </tr>
+            <tr>
+              <td><strong>Runway Gen3</strong></td>
+              <td>0.485</td>
+              <td>0.552</td>
+              <td>0.563</td>
+              <td>0.383</td>
+              <td>0.446</td>
+              <td>0.442</td>
+              <td>0.532</td>
+              <td>0.470</td>
+              <td>0.484</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Narrative Coherence Results -->
+    <div class="result-table">
+      <h3 class="title is-4">Narrative Coherence Evaluation Results</h3>
+      <div style="overflow-x: auto;">
+        <table class="table is-striped is-fullwidth">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>SSMA_SS</th>
+              <th>SSMA_FO</th>
+              <th>SSMA_SI</th>
+              <th>MSMA_SS</th>
+              <th>MSMA_FO</th>
+              <th>MSMA_SI</th>
+              <th>SSSA</th>
+              <th>MSSA</th>
+              <th>Avg. Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Kling 2.0</strong></td>
+              <td class="best-score">0.266</td>
+              <td>0.209</td>
+              <td>0.207</td>
+              <td class="best-score">0.192</td>
+              <td class="best-score">0.258</td>
+              <td>0.228</td>
+              <td>0.291</td>
+              <td class="best-score">0.366</td>
+              <td class="best-score">0.252</td>
+            </tr>
+            <tr>
+              <td><strong>Hailuo T2V-01</strong></td>
+              <td>0.212</td>
+              <td class="best-score">0.230</td>
+              <td>0.192</td>
+              <td>0.179</td>
+              <td>0.207</td>
+              <td>0.199</td>
+              <td class="best-score">0.345</td>
+              <td>0.288</td>
+              <td>0.231</td>
+            </tr>
+            <tr>
+              <td><strong>Pika 2.2</strong></td>
+              <td>0.219</td>
+              <td>0.202</td>
+              <td>0.194</td>
+              <td>0.171</td>
+              <td>0.238</td>
+              <td class="best-score">0.229</td>
+              <td>0.293</td>
+              <td>0.277</td>
+              <td>0.228</td>
+            </tr>
+            <tr>
+              <td><strong>Cogvideo 1.5</strong></td>
+              <td>0.222</td>
+              <td>0.197</td>
+              <td class="best-score">0.208</td>
+              <td>0.189</td>
+              <td>0.224</td>
+              <td>0.191</td>
+              <td>0.272</td>
+              <td>0.235</td>
+              <td>0.217</td>
+            </tr>
+            <tr>
+              <td><strong>Veo 2.0</strong></td>
+              <td>0.156</td>
+              <td>0.180</td>
+              <td>0.158</td>
+              <td>0.184</td>
+              <td>0.225</td>
+              <td>0.190</td>
+              <td>0.256</td>
+              <td>0.262</td>
+              <td>0.201</td>
+            </tr>
+            <tr>
+              <td><strong>Luma Ray2</strong></td>
+              <td>0.122</td>
+              <td>0.174</td>
+              <td>0.149</td>
+              <td>0.171</td>
+              <td>0.199</td>
+              <td>0.146</td>
+              <td>0.216</td>
+              <td>0.262</td>
+              <td>0.180</td>
+            </tr>
+            <tr>
+              <td><strong>Sora</strong></td>
+              <td>0.198</td>
+              <td>0.161</td>
+              <td>0.154</td>
+              <td>0.123</td>
+              <td>0.152</td>
+              <td>0.171</td>
+              <td>0.287</td>
+              <td>0.180</td>
+              <td>0.178</td>
+            </tr>
+            <tr>
+              <td><strong>Runway Gen3</strong></td>
+              <td>0.149</td>
+              <td>0.137</td>
+              <td>0.163</td>
+              <td>0.115</td>
+              <td>0.141</td>
+              <td>0.163</td>
+              <td>0.198</td>
+              <td>0.170</td>
+              <td>0.154</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Human Evaluation Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Human Evaluation Results</h2>
+    
+    <div class="human-eval-section">
+      <div class="content has-text-centered">
+        <p class="is-size-5">
+          Detailed human evaluation across all models and categories with Overall, Action, and Consistency dimensions
+        </p>
+      </div>
+      
+      <div class="eval-controls">
+        <button class="filter-btn active" onclick="showEvalCategory('all')">All Categories</button>
+        <button class="filter-btn" onclick="showEvalCategory('animal')">🐾 Animal</button>
+        <button class="filter-btn" onclick="showEvalCategory('human')">👤 Human</button>
+        <button class="filter-btn" onclick="showEvalCategory('imaginary')">✨ Imaginary</button>
+        <button class="filter-btn" onclick="showEvalCategory('object')">📦 Object</button>
+      </div>
+      
+      <div class="eval-table">
+        <div style="overflow-x: auto;">
+          <table class="table is-striped is-fullwidth" id="humanEvalTable">
+            <thead>
+              <tr>
+                <th rowspan="2">Model</th>
+                <th colspan="3">MSMA-FO</th>
+                <th colspan="3">MSMA-SI</th>
+                <th colspan="3">MSMA-SS</th>
+                <th colspan="3">MSSA</th>
+                <th colspan="3">SSMA-FO</th>
+                <th colspan="3">SSMA-SI</th>
+                <th colspan="3">SSMA-SS</th>
+                <th colspan="3">SSSA</th>
+              </tr>
+              <tr>
+                <th>Overall</th><th>Consistency</th><th>Action</th>
+                <th>Overall</th><th>Consistency</th><th>Action</th>
+                <th>Overall</th><th>Consistency</th><th>Action</th>
+                <th>Overall</th><th>Consistency</th><th>Action</th>
+                <th>Overall</th><th>Consistency</th><th>Action</th>
+                <th>Overall</th><th>Consistency</th><th>Action</th>
+                <th>Overall</th><th>Consistency</th><th>Action</th>
+                <th>Overall</th><th>Consistency</th><th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="humanEvalBody">
+              <!-- Data will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BibTeX Section -->
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{Anonymous2025SeqBench,
+    <pre><code>@article{seqbench2025,
   author    = {Anonymous Authors},
   title     = {SeqBench: Benchmarking Sequential Narrative Generation in Text-to-Video Models},
-  journal   = {XXX change here journal},
+  journal   = {TBD},
   year      = {2025},
 }</code></pre>
   </div>
 </section>
 
-
 <footer class="footer">
   <div class="container">
     <div class="content has-text-centered">
-      <a class="icon-link"
-         href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+      <a class="icon-link" href="#">
         <i class="fas fa-file-pdf"></i>
       </a>
-      <a class="icon-link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="external-link" disabled>
+      <a class="icon-link" href="#" class="external-link">
         <i class="fab fa-github"></i>
       </a>
     </div>
@@ -189,9 +868,7 @@
             Commons Attribution-ShareAlike 4.0 International License</a>.
           </p>
           <p>
-            This means you are free to borrow the <a
-              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
-            we just ask that you link back to this page in the footer.
+            Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
             Please remember to remove the analytics code included in the header of the website which
             you do not want on your website.
           </p>
@@ -200,6 +877,224 @@
     </div>
   </div>
 </footer>
+
+<script>
+// Human evaluation data from your provided table
+const humanEvalData = {
+  'cogvideo': {
+    'Animal': [1.450000, 0.700000, 0.950000, 0.800000, 0.300000, 0.500000, 0.600000, 0.400000, 0.200000, 0.400000, 0.200000, 0.200000, 1.000000, 0.500000, 0.600000, 0.400000, 0.200000, 0.200000, 0.900000, 0.300000, 0.300000, 0.200000, 0.200000, 0.200000],
+    'Human': [0.333333, 0.266667, 0.300000, 0.233333, 0.066667, 0.133333, 0.500000, 0.333333, 0.166667, 0.300000, 0.300000, 0.300000, 0.233333, 0.100000, 0.166667, 0.200000, 0.100000, 0.166667, 0.200000, 0.133333, 0.200000, 0.300000, 0.300000, 0.300000],
+    'Imaginary': [0.566667, 0.566667, 0.133333, 0.466667, 0.216667, 0.400000, 0.583333, 0.533333, 0.050000, 0.400000, 0.650000, 0.250000, 0.650000, 0.600000, 0.400000, 0.650000, 0.650000, 0.250000, 0.750000, 0.550000, 0.550000, 0.650000, 0.650000, 0.250000],
+    'Object': [0.800000, 0.300000, 0.500000, 1.050000, 0.350000, 0.700000, 0.750000, 0.700000, 0.050000, 0.500000, 0.550000, 0.750000, 0.850000, 0.250000, 0.550000, 0.550000, 0.400000, 0.750000, 0.700000, 0.250000, 0.550000, 0.550000, 0.400000, 0.750000]
+  },
+  'gen3': {
+    'Animal': [0.100000, 0.100000, 0.050000, 0.200000, 0.400000, 0.350000, 0.150000, 0.000000, 0.700000, 0.600000, 0.150000, 0.100000, 0.350000, 0.150000, 0.150000, 0.300000, 0.350000, 0.150000, 0.450000, 0.200000, 0.200000, 0.300000, 0.250000, 0.150000, 0.100000],
+    'Human': [0.233333, 0.133333, 0.233333, 0.133333, 0.100000, 0.100000, 0.333333, 0.200000, 0.133333, 0.300000, 0.350000, 0.150000, 0.350000, 0.300000, 0.350000, 0.350000, 0.200000, 0.300000, 0.400000, 0.300000, 0.350000, 0.350000, 0.150000, 0.150000, 0.100000],
+    'Imaginary': [0.266667, 0.600000, 0.333333, 0.133333, 0.366667, 0.350000, 0.600000, 0.466667, 0.133333, 0.500000, 0.250000, 0.300000, 0.450000, 0.550000, 0.450000, 0.650000, 0.650000, 0.300000, 0.550000, 0.350000, 0.300000, 0.350000, 0.350000, 0.300000],
+    'Object': [0.650000, 0.200000, 0.450000, 0.550000, 0.250000, 0.450000, 0.750000, 0.700000, 0.050000, 0.500000, 0.750000, 0.900000, 0.700000, 0.450000, 0.500000, 0.750000, 0.550000, 0.650000, 0.900000, 0.600000, 0.650000, 0.750000, 0.700000, 0.200000, 0.900000]
+  },
+  'hailuo': {
+    'Animal': [1.150000, 0.750000, 0.600000, 1.000000, 0.900000, 0.900000, 0.900000, 0.900000, 0.000000, 0.600000, 0.650000, 0.550000, 0.800000, 0.800000, 0.600000, 0.650000, 0.650000, 0.550000, 0.650000, 0.650000, 0.550000, 1.000000, 0.650000, 0.650000, 0.550000],
+    'Human': [0.733333, 0.500000, 0.366667, 0.700000, 0.350000, 0.500000, 0.700000, 0.533333, 0.266667, 0.250000, 0.700000, 0.400000, 0.600000, 0.450000, 0.650000, 0.650000, 0.400000, 0.400000, 0.650000, 0.650000, 0.400000, 0.650000, 0.650000, 0.400000, 0.400000],
+    'Imaginary': [0.566667, 0.500000, 0.200000, 0.766667, 0.600000, 0.666667, 0.700000, 0.700000, 0.000000, 0.600000, 0.450000, 0.550000, 0.650000, 0.550000, 0.550000, 0.650000, 0.650000, 0.550000, 0.600000, 0.600000, 0.550000, 0.800000, 0.550000, 0.550000, 0.550000],
+    'Object': [1.100000, 0.600000, 0.700000, 0.650000, 0.450000, 0.500000, 0.700000, 0.700000, 0.000000, 0.450000, 0.500000, 0.750000, 0.650000, 0.500000, 0.500000, 0.650000, 0.650000, 0.500000, 0.500000, 0.500000, 0.500000, 0.850000, 0.500000, 0.500000, 0.750000]
+  },
+  'luma': {
+    'Animal': [0.900000, 0.650000, 0.250000, 0.800000, 0.600000, 0.750000, 0.850000, 0.800000, 0.050000, 0.650000, 0.600000, 0.450000, 0.650000, 0.600000, 0.450000, 0.650000, 0.650000, 0.450000, 0.750000, 0.750000, 0.450000, 0.800000, 0.650000, 0.450000, 0.450000],
+    'Human': [0.533333, 0.333333, 0.200000, 0.500000, 0.350000, 0.300000, 0.600000, 0.500000, 0.100000, 0.450000, 0.650000, 0.350000, 0.350000, 0.300000, 0.200000, 0.550000, 0.450000, 0.300000, 0.600000, 0.350000, 0.300000, 0.650000, 0.350000, 0.250000, 0.300000],
+    'Imaginary': [0.666667, 0.750000, 0.350000, 0.500000, 0.700000, 0.550000, 0.900000, 0.800000, 0.100000, 0.700000, 0.550000, 0.600000, 0.800000, 0.750000, 0.600000, 0.750000, 0.750000, 0.600000, 0.850000, 0.800000, 0.550000, 0.900000, 0.800000, 0.550000, 0.550000],
+    'Object': [1.250000, 0.600000, 0.700000, 0.800000, 0.350000, 0.400000, 1.000000, 0.900000, 0.200000, 0.050000, 0.650000, 0.800000, 0.550000, 0.350000, 0.450000, 0.950000, 0.850000, 0.450000, 0.700000, 0.550000, 0.450000, 0.650000, 0.800000, 0.250000, 0.800000]
+  },
+  'pika': {
+    'Animal': [1.150000, 0.350000, 0.750000, 0.700000, 0.350000, 0.900000, 0.900000, 0.750000, 0.200000, 0.000000, 0.650000, 0.550000, 0.950000, 0.900000, 0.650000, 0.550000, 0.550000, 0.650000, 0.900000, 0.850000, 0.650000, 0.550000, 0.250000, 0.300000],
+    'Human': [0.433333, 0.466667, 0.233333, 0.433333, 0.366667, 0.200000, 0.566667, 0.400000, 0.166667, 0.350000, 0.400000, 0.250000, 0.350000, 0.300000, 0.300000, 0.450000, 0.450000, 0.300000, 0.700000, 0.350000, 0.300000, 0.250000, 0.300000, 0.000000],
+    'Imaginary': [1.033333, 0.666667, 0.533333, 1.033333, 0.800000, 0.700000, 0.800000, 0.800000, 0.000000, 0.700000, 0.850000, 0.900000, 0.850000, 0.750000, 0.850000, 0.900000, 0.900000, 0.750000, 1.050000, 0.850000, 0.850000, 1.050000, 0.850000, 0.900000],
+    'Object': [0.900000, 0.600000, 0.400000, 1.150000, 0.650000, 0.800000, 0.900000, 0.900000, 0.300000, 0.350000, 0.500000, 0.700000, 0.650000, 0.400000, 0.450000, 0.900000, 0.850000, 0.450000, 0.750000, 0.650000, 0.450000, 0.750000, 0.650000, 0.700000]
+  },
+  'sora': {
+    'Animal': [0.450000, 0.500000, 0.150000, 0.500000, 0.400000, 0.100000, 0.650000, 0.550000, 0.050000, 0.400000, 0.400000, 0.300000, 0.400000, 0.400000, 0.300000, 0.550000, 0.500000, 0.300000, 0.450000, 0.400000, 0.300000, 0.700000, 0.400000, 0.300000],
+    'Human': [0.333333, 0.166667, 0.133333, 0.233333, 0.066667, 0.066667, 0.350000, 0.300000, 0.050000, 0.350000, 0.300000, 0.350000, 0.300000, 0.200000, 0.200000, 0.350000, 0.350000, 0.200000, 0.300000, 0.300000, 0.200000, 0.350000, 0.200000, 0.350000],
+    'Imaginary': [0.133333, 0.566667, 0.333333, 0.166667, 0.166667, 0.150000, 0.300000, 0.450000, 0.200000, 0.050000, 0.250000, 0.350000, 0.250000, 0.500000, 0.350000, 0.500000, 0.500000, 0.350000, 0.250000, 0.450000, 0.350000, 0.550000, 0.500000, 0.350000],
+    'Object': [0.700000, 0.400000, 0.500000, 0.850000, 0.550000, 0.300000, 0.550000, 0.550000, 0.300000, 0.050000, 0.750000, 0.550000, 0.650000, 0.650000, 0.550000, 0.750000, 0.800000, 0.550000, 0.700000, 0.700000, 0.550000, 1.050000, 0.300000, 0.900000]
+  },
+  'veo': {
+    'Animal': [1.400000, 0.550000, 0.850000, 1.400000, 0.700000, 1.100000, 0.900000, 0.900000, 0.000000, 0.700000, 0.450000, 0.150000, 0.800000, 0.650000, 0.450000, 0.900000, 0.850000, 0.450000, 0.900000, 0.850000, 0.450000, 0.850000, 0.800000, 0.150000, 0.150000],
+    'Human': [0.866667, 0.266667, 0.766667, 0.466667, 0.200000, 0.666667, 0.600000, 0.500000, 0.400000, 0.450000, 0.850000, 0.700000, 0.550000, 0.300000, 0.550000, 0.700000, 0.650000, 0.550000, 0.850000, 0.650000, 0.450000, 0.850000, 0.850000, 0.450000, 0.700000],
+    'Imaginary': [0.600000, 0.600000, 0.400000, 0.633333, 0.566667, 0.400000, 0.600000, 0.550000, 0.050000, 0.350000, 0.400000, 0.550000, 0.500000, 0.350000, 0.400000, 0.850000, 0.800000, 0.550000, 0.700000, 0.650000, 0.550000, 1.000000, 0.850000, 0.550000, 0.550000],
+    'Object': [1.250000, 0.750000, 0.700000, 1.250000, 0.550000, 0.700000, 0.900000, 0.900000, 0.000000, 0.150000, 0.850000, 0.650000, 0.900000, 0.850000, 0.650000, 0.900000, 0.850000, 0.650000, 1.100000, 0.900000, 0.650000, 1.100000, 0.900000, 0.350000, 0.850000]
+  }
+};
+
+// Video examples data
+const videoExamples = [
+  {
+    title: "Cat chases ball then sits",
+    category: "animal", 
+    difficulty: "ssma",
+    model: "Kling 2.0",
+    score: 0.85,
+    description: "Single subject performing multiple sequential actions"
+  },
+  {
+    title: "Chef cooks pasta while assistant prepares salad",
+    category: "human",
+    difficulty: "msma", 
+    model: "Cogvideo 1.5",
+    score: 0.72,
+    description: "Multiple subjects performing different simultaneous actions"
+  },
+  {
+    title: "Magic wand transforms objects",
+    category: "imaginary",
+    difficulty: "ssma",
+    model: "Sora", 
+    score: 0.68,
+    description: "Fantastical transformation sequence"
+  },
+  {
+    title: "Ball rolls and hits another ball",
+    category: "object",
+    difficulty: "mssa",
+    model: "Pika 2.2",
+    score: 0.61,
+    description: "Multiple objects in collision interaction"
+  },
+  {
+    title: "Dog fetches stick",
+    category: "animal",
+    difficulty: "sssa", 
+    model: "Hailuo T2V-01",
+    score: 0.89,
+    description: "Simple single action scenario"
+  },
+  {
+    title: "Person walks, sits, then reads book",
+    category: "human",
+    difficulty: "ssma",
+    model: "Veo 2.0", 
+    score: 0.75,
+    description: "Sequential human activities"
+  }
+];
+
+function populateVideoGallery() {
+  const grid = document.getElementById('videoGrid');
+  grid.innerHTML = '';
+  
+  videoExamples.forEach(video => {
+    const card = document.createElement('div');
+    card.className = `video-card ${video.category} ${video.difficulty}`;
+    card.innerHTML = `
+      <div class="video-placeholder">
+        <div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">
+          ${video.score.toFixed(2)}
+        </div>
+      </div>
+      <h5 class="title is-6">${video.title}</h5>
+      <p class="is-size-7">${video.description}</p>
+      <div class="video-tags">
+        <span class="video-tag">${video.model}</span>
+        <span class="video-tag">${video.category}</span>
+        <span class="video-tag">${video.difficulty.toUpperCase()}</span>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function filterVideos(filter) {
+  const cards = document.querySelectorAll('.video-card');
+  cards.forEach(card => {
+    if (filter === 'all') {
+      card.style.display = 'block';
+    } else {
+      card.style.display = card.classList.contains(filter) ? 'block' : 'none';
+    }
+  });
+  
+  // Update active button
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  event.target.classList.add('active');
+}
+
+function populateHumanEvalTable(category = 'all') {
+  const tbody = document.getElementById('humanEvalBody');
+  tbody.innerHTML = '';
+  
+  const models = ['cogvideo', 'gen3', 'hailuo', 'luma', 'pika', 'sora', 'veo'];
+  const modelNames = {
+    'cogvideo': 'Cogvideo 1.5',
+    'gen3': 'Runway Gen3', 
+    'hailuo': 'Hailuo T2V-01',
+    'luma': 'Luma Ray2',
+    'pika': 'Pika 2.2',
+    'sora': 'Sora',
+    'veo': 'Veo 2.0'
+  };
+  
+  models.forEach(model => {
+    if (category === 'all') {
+      // Show average across all categories
+      const categories = ['Animal', 'Human', 'Imaginary', 'Object'];
+      const avgData = new Array(24).fill(0);
+      
+      categories.forEach(cat => {
+        const data = humanEvalData[model][cat];
+        data.forEach((val, idx) => {
+          avgData[idx] += val / categories.length;
+        });
+      });
+      
+      const row = document.createElement('tr');
+      row.className = 'model-row';
+      row.innerHTML = `
+        <td><strong>${modelNames[model]}</strong></td>
+        ${avgData.map(val => `<td>${val.toFixed(3)}</td>`).join('')}
+      `;
+      tbody.appendChild(row);
+    } else {
+      // Show specific category
+      const categoryKey = category.charAt(0).toUpperCase() + category.slice(1);
+      if (humanEvalData[model][categoryKey]) {
+        const data = humanEvalData[model][categoryKey];
+        const row = document.createElement('tr');
+        row.className = 'model-row';
+        row.innerHTML = `
+          <td><strong>${modelNames[model]}</strong></td>
+          ${data.map(val => `<td>${val.toFixed(3)}</td>`).join('')}
+        `;
+        tbody.appendChild(row);
+      }
+    }
+  });
+}
+
+function showEvalCategory(category) {
+  populateHumanEvalTable(category);
+  
+  // Update active button
+  document.querySelectorAll('.eval-controls .filter-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  event.target.classList.add('active');
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', function() {
+  populateVideoGallery();
+  populateHumanEvalTable();
+  
+  // Add event listeners to filter buttons
+  document.querySelectorAll('.filter-controls .filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const filter = this.dataset.filter;
+      filterVideos(filter);
+    });
+  });
+});
+</script>
 
 </body>
 </html>
