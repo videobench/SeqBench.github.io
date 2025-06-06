@@ -895,10 +895,17 @@ const humanEvalData = {
   }
 };
 
-// Video path generation logic based on your folder structure
+// Video path generation logic - supports multiple hosting options
 function generateVideoPath(category, difficulty, model, videoIndex) {
-  // video_bench/category/difficulty/model/videoIndex.mp4
-  return `./video_bench/${category}/${difficulty}/${model}/${videoIndex}.mp4`;
+  // Option 1: GitHub LFS
+  // return `./video_bench/${category}/${difficulty}/${model}/${videoIndex}.mp4`;
+  
+  // Option 2: External CDN/Cloud Storage
+  const baseUrl = 'https://your-cdn-domain.com/seqbench'; // 替换为你的CDN地址
+  return `${baseUrl}/${category}/${difficulty}/${model}/${videoIndex}.mp4`;
+  
+  // Option 3: YouTube embed (需要修改video element)
+  // return `https://www.youtube.com/embed/your_video_id`;
 }
 
 // Model name mapping
@@ -925,22 +932,19 @@ const difficultyMapping = {
   'ssma_ss': { full: 'Single Subject-Multi Action (Strictly Sequential)', short: 'SSMA-SS' }
 };
 
-// Generate sample video examples for display
+// Generate sample video examples for display (reduced set for demo)
 function generateVideoExamples() {
   const categories = ['animal', 'human', 'imaginary', 'object'];
-  const difficulties = ['msma_fo', 'msma_sim', 'msma_ss', 'sssa', 'mssa', 'ssma_fo', 'ssma_sim', 'ssma_ss'];
-  const models = ['kling', 'sora', 'hailuo', 'cogvideo', 'luma', 'gen3', 'pika', 'veo'];
+  const difficulties = ['msma_fo', 'sssa', 'ssma_ss']; // 只展示代表性难度
+  const models = ['kling', 'cogvideo']; // 只展示最佳模型
   
   const examples = [];
   
   // Generate representative examples from each category and difficulty
   categories.forEach(category => {
     difficulties.forEach(difficulty => {
-      // Select top 2 models for each combination
-      const selectedModels = ['kling', 'cogvideo']; // Usually best performing
-      
-      selectedModels.forEach(model => {
-        // Use video index 0 as representative
+      models.forEach(model => {
+        // 只使用video index 0 作为代表
         const videoPath = generateVideoPath(category, difficulty, model, 0);
         
         examples.push({
