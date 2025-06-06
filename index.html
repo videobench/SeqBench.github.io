@@ -346,16 +346,16 @@
                   <p>Carefully Designed Prompts</p>
                 </div>
                 <div class="column is-half has-text-centered">
-                  <div class="highlight-number">2,560</div>
-                  <p>Human-Annotated Videos</p>
+                  <div class="highlight-number">32</div>
+                  <p>Video Examples (Animal & Human)</p>
                 </div>
                 <div class="column is-half has-text-centered">
-                  <div class="highlight-number">8</div>
-                  <p>State-of-the-art T2V Models</p>
+                  <div class="highlight-number">2</div>
+                  <p>Featured Models (Kling & Sora)</p>
                 </div>
                 <div class="column is-half has-text-centered">
-                  <div class="highlight-number">4</div>
-                  <p>Content Categories</p>
+                  <div class="highlight-number">2</div>
+                  <p>Featured Categories</p>
                 </div>
               </div>
             </div>
@@ -367,8 +367,7 @@
               <div class="content">
                 <p><strong>🐾 Animal:</strong> Animal behaviors and interactions, from simple locomotion to complex predatory behaviors</p>
                 <p><strong>👤 Human:</strong> Human activities across various contexts, from daily routines to social interactions</p>
-                <p><strong>📦 Object:</strong> Inanimate objects and their transformations, movements, or interactions</p>
-                <p><strong>✨ Imaginary:</strong> Fantastical, supernatural, or stylized content beyond realistic constraints</p>
+                <p style="color: #666; font-size: 0.9rem;"><em>Note: This gallery showcases a curated selection of Animal and Human categories with Kling 2.0 and Sora models. The complete dataset includes Object and Imaginary categories with all 8 models.</em></p>
               </div>
             </div>
           </div>
@@ -486,8 +485,6 @@
         <button class="filter-btn active" data-filter="all">All Videos</button>
         <button class="filter-btn" data-filter="animal">🐾 Animal</button>
         <button class="filter-btn" data-filter="human">👤 Human</button>
-        <button class="filter-btn" data-filter="object">📦 Object</button>
-        <button class="filter-btn" data-filter="imaginary">✨ Imaginary</button>
         <button class="filter-btn" data-filter="sssa">SSSA</button>
         <button class="filter-btn" data-filter="ssma_fo">SSMA-FO</button>
         <button class="filter-btn" data-filter="ssma_sim">SSMA-SI</button>
@@ -895,17 +892,10 @@ const humanEvalData = {
   }
 };
 
-// Video path generation logic - supports multiple hosting options
+// Video path generation logic - optimized for reduced dataset
 function generateVideoPath(category, difficulty, model, videoIndex) {
-  // Option 1: GitHub LFS
-  // return `./video_bench/${category}/${difficulty}/${model}/${videoIndex}.mp4`;
-  
-  // Option 2: External CDN/Cloud Storage
-  const baseUrl = 'https://your-cdn-domain.com/seqbench'; // 替换为你的CDN地址
-  return `${baseUrl}/${category}/${difficulty}/${model}/${videoIndex}.mp4`;
-  
-  // Option 3: YouTube embed (需要修改video element)
-  // return `https://www.youtube.com/embed/your_video_id`;
+  // Local GitHub repository path for reduced dataset
+  return `./video_bench/${category}/${difficulty}/${model}/${videoIndex}.mp4`;
 }
 
 // Model name mapping
@@ -932,11 +922,11 @@ const difficultyMapping = {
   'ssma_ss': { full: 'Single Subject-Multi Action (Strictly Sequential)', short: 'SSMA-SS' }
 };
 
-// Generate sample video examples for display (reduced set for demo)
+// Generate sample video examples for display (optimized set)
 function generateVideoExamples() {
-  const categories = ['animal', 'human', 'imaginary', 'object'];
-  const difficulties = ['msma_fo', 'sssa', 'ssma_ss']; // 只展示代表性难度
-  const models = ['kling', 'cogvideo']; // 只展示最佳模型
+  const categories = ['animal', 'human']; // 只展示Animal和Human
+  const difficulties = ['msma_fo', 'msma_sim', 'msma_ss', 'sssa', 'mssa', 'ssma_fo', 'ssma_sim', 'ssma_ss']; // 所有8个难度
+  const models = ['kling', 'sora']; // 只展示Kling和Sora
   
   const examples = [];
   
@@ -944,7 +934,7 @@ function generateVideoExamples() {
   categories.forEach(category => {
     difficulties.forEach(difficulty => {
       models.forEach(model => {
-        // 只使用video index 0 作为代表
+        // 使用video index 0 作为代表
         const videoPath = generateVideoPath(category, difficulty, model, 0);
         
         examples.push({
