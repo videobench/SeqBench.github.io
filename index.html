@@ -136,19 +136,22 @@
     .filter-controls {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.8rem;
       margin-bottom: 2rem;
       justify-content: center;
+      align-items: center;
     }
     
     .filter-btn {
-      padding: 0.5rem 1rem;
+      padding: 0.4rem 0.8rem;
       border: 2px solid #3273dc;
       background: white;
       color: #3273dc;
-      border-radius: 20px;
+      border-radius: 16px;
       cursor: pointer;
       transition: all 0.3s;
+      font-size: 0.85rem;
+      white-space: nowrap;
     }
     
     .filter-btn:hover, .filter-btn.active {
@@ -158,9 +161,23 @@
     
     .video-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
       margin-top: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+      .video-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+    
+    @media (min-width: 1200px) {
+      .video-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+      }
     }
     
     .video-card {
@@ -479,27 +496,46 @@
     
     <div class="video-gallery">
       <div class="content has-text-centered">
-        <p class="is-size-5">Explore Human category video examples across different difficulty levels and models</p>
+        <p class="is-size-5">Explore Human category video examples across all 8 models and difficulty levels</p>
         <p class="is-size-6" style="color: #666; margin-top: 0.5rem;">
-          Featuring 8 videos showcasing Kling 2.0's performance across all difficulty levels from our benchmark
+          Featuring 64 videos (8 models × 8 difficulty levels) from our comprehensive human evaluation benchmark
+        </p>
+        <p class="is-size-7" style="color: #888; margin-top: 0.5rem;">
+          Videos are sorted by performance score. Use filters to explore specific models or difficulty levels.
         </p>
       </div>
       
       <div class="filter-controls">
         <button class="filter-btn active" data-filter="all">All Videos</button>
         <button class="filter-btn" data-filter="human">👤 Human</button>
+        <div style="border-left: 2px solid #ddd; height: 20px; margin: 0 0.5rem;"></div>
+        <button class="filter-btn" data-filter="kling">Kling 2.0</button>
+        <button class="filter-btn" data-filter="hailuo">Hailuo T2V-01</button>
+        <button class="filter-btn" data-filter="pika">Pika 2.2</button>
+        <button class="filter-btn" data-filter="sora">Sora</button>
+        <button class="filter-btn" data-filter="luma">Luma Ray2</button>
+        <button class="filter-btn" data-filter="veo">Veo 2.0</button>
+        <button class="filter-btn" data-filter="gen3">Runway Gen3</button>
+        <button class="filter-btn" data-filter="cogvideo">Cogvideo 1.5</button>
+        <div style="border-left: 2px solid #ddd; height: 20px; margin: 0 0.5rem;"></div>
         <button class="filter-btn" data-filter="sssa">SSSA</button>
         <button class="filter-btn" data-filter="mssa">MSSA</button>
         <button class="filter-btn" data-filter="ssma_fo">SSMA-FO</button>
-        <button class="filter-btn" data-filter="ssma_si">SSMA-SI</button>
+        <button class="filter-btn" data-filter="ssma_sim">SSMA-SI</button>
         <button class="filter-btn" data-filter="ssma_ss">SSMA-SS</button>
         <button class="filter-btn" data-filter="msma_fo">MSMA-FO</button>
-        <button class="filter-btn" data-filter="msma_si">MSMA-SI</button>
+        <button class="filter-btn" data-filter="msma_sim">MSMA-SI</button>
         <button class="filter-btn" data-filter="msma_ss">MSMA-SS</button>
       </div>
       
       <div class="video-grid" id="videoGrid">
         <!-- Video examples will be populated here -->
+      </div>
+      
+      <div id="videoStats" style="text-align: center; margin-top: 2rem; padding: 1rem; background: white; border-radius: 8px;">
+        <p class="is-size-6" style="color: #666;">
+          Showing <span id="visibleCount">64</span> of <span id="totalCount">64</span> videos
+        </p>
       </div>
     </div>
   </div>
@@ -895,80 +931,87 @@ const humanEvalData = {
   }
 };
 
-// Video examples data generated from CSV analysis
+// All Human category videos - representative selection
 const videoExamples = [
-  {
-    "title": "Multi Subject-Single Action",
-    "category": "human",
-    "difficulty": "mssa",
-    "model": "Kling 2.0",
-    "score": 2,
-    "description": "Multi Subject-Single Action",
-    "videoPath": "./video_bench/human/mssa/kling/3.mp4"
-  },
-  {
-    "title": "Single Subject-Single Action",
-    "category": "human",
-    "difficulty": "sssa",
-    "model": "Kling 2.0",
-    "score": 2,
-    "description": "Single Subject-Single Action",
-    "videoPath": "./video_bench/human/sssa/kling/3.mp4"
-  },
-  {
-    "title": "Multi Subject-Multi Action (Flexible Order)",
-    "category": "human",
-    "difficulty": "msma_fo",
-    "model": "Kling 2.0",
-    "score": 1.667,
-    "description": "Multi Subject-Multi Action (Flexible Order)",
-    "videoPath": "./video_bench/human/msma_fo/kling/9.mp4"
-  },
-  {
-    "title": "Multi Subject-Multi Action (Simultaneous)",
-    "category": "human",
-    "difficulty": "msma_si",
-    "model": "Kling 2.0",
-    "score": 1.667,
-    "description": "Multi Subject-Multi Action (Simultaneous)",
-    "videoPath": "./video_bench/human/msma_sim/kling/7.mp4"
-  },
-  {
-    "title": "Single Subject-Multi Action (Flexible Order)",
-    "category": "human",
-    "difficulty": "ssma_fo",
-    "model": "Kling 2.0",
-    "score": 1.5,
-    "description": "Single Subject-Multi Action (Flexible Order)",
-    "videoPath": "./video_bench/human/ssma_fo/kling/1.mp4"
-  },
-  {
-    "title": "Single Subject-Multi Action (Simultaneous)",
-    "category": "human",
-    "difficulty": "ssma_si",
-    "model": "Kling 2.0",
-    "score": 1.5,
-    "description": "Single Subject-Multi Action (Simultaneous)",
-    "videoPath": "./video_bench/human/ssma_sim/kling/5.mp4"
-  },
-  {
-    "title": "Single Subject-Multi Action (Strictly Sequential)",
-    "category": "human",
-    "difficulty": "ssma_ss",
-    "model": "Kling 2.0",
-    "score": 1.5,
-    "description": "Single Subject-Multi Action (Strictly Sequential)",
-    "videoPath": "./video_bench/human/ssma_ss/kling/1.mp4"
-  },
-  {
-    "title": "Multi Subject-Multi Action (Strictly Sequential)",
-    "category": "human",
-    "difficulty": "msma_ss",
-    "model": "Kling 2.0",
-    "score": 1,
-    "description": "Multi Subject-Multi Action (Strictly Sequential)",
-    "videoPath": "./video_bench/human/msma_ss/kling/5.mp4"
-  }
+  // Kling 2.0 videos
+  { title: "MSMA-FO - Kling 2.0", category: "human", difficulty: "msma_fo", model: "Kling 2.0", modelKey: "kling", score: 1.667, description: "Multi Subject-Multi Action (Flexible Order)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_fo/kling/9.mp4", index: 9 },
+  { title: "MSMA-SI - Kling 2.0", category: "human", difficulty: "msma_sim", model: "Kling 2.0", modelKey: "kling", score: 1.667, description: "Multi Subject-Multi Action (Simultaneous)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_sim/kling/7.mp4", index: 7 },
+  { title: "MSMA-SS - Kling 2.0", category: "human", difficulty: "msma_ss", model: "Kling 2.0", modelKey: "kling", score: 1.0, description: "Multi Subject-Multi Action (Strictly Sequential)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_ss/kling/5.mp4", index: 5 },
+  { title: "MSSA - Kling 2.0", category: "human", difficulty: "mssa", model: "Kling 2.0", modelKey: "kling", score: 2.0, description: "Multi Subject-Single Action", videoPath: "https://videobench.github.io/static/video_bench/human/mssa/kling/3.mp4", index: 3 },
+  { title: "SSMA-FO - Kling 2.0", category: "human", difficulty: "ssma_fo", model: "Kling 2.0", modelKey: "kling", score: 1.5, description: "Single Subject-Multi Action (Flexible Order)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_fo/kling/1.mp4", index: 1 },
+  { title: "SSMA-SI - Kling 2.0", category: "human", difficulty: "ssma_sim", model: "Kling 2.0", modelKey: "kling", score: 1.5, description: "Single Subject-Multi Action (Simultaneous)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_sim/kling/5.mp4", index: 5 },
+  { title: "SSMA-SS - Kling 2.0", category: "human", difficulty: "ssma_ss", model: "Kling 2.0", modelKey: "kling", score: 1.5, description: "Single Subject-Multi Action (Strictly Sequential)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_ss/kling/1.mp4", index: 1 },
+  { title: "SSSA - Kling 2.0", category: "human", difficulty: "sssa", model: "Kling 2.0", modelKey: "kling", score: 2.0, description: "Single Subject-Single Action", videoPath: "https://videobench.github.io/static/video_bench/human/sssa/kling/3.mp4", index: 3 },
+  
+  // Hailuo T2V-01 videos
+  { title: "MSMA-FO - Hailuo T2V-01", category: "human", difficulty: "msma_fo", model: "Hailuo T2V-01", modelKey: "hailuo", score: 1.333, description: "Multi Subject-Multi Action (Flexible Order)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_fo/hailuo/2.mp4", index: 2 },
+  { title: "MSMA-SI - Hailuo T2V-01", category: "human", difficulty: "msma_sim", model: "Hailuo T2V-01", modelKey: "hailuo", score: 1.0, description: "Multi Subject-Multi Action (Simultaneous)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_sim/hailuo/3.mp4", index: 3 },
+  { title: "MSMA-SS - Hailuo T2V-01", category: "human", difficulty: "msma_ss", model: "Hailuo T2V-01", modelKey: "hailuo", score: 1.0, description: "Multi Subject-Multi Action (Strictly Sequential)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_ss/hailuo/1.mp4", index: 1 },
+  { title: "MSSA - Hailuo T2V-01", category: "human", difficulty: "mssa", model: "Hailuo T2V-01", modelKey: "hailuo", score: 0.667, description: "Multi Subject-Single Action", videoPath: "https://videobench.github.io/static/video_bench/human/mssa/hailuo/4.mp4", index: 4 },
+  { title: "SSMA-FO - Hailuo T2V-01", category: "human", difficulty: "ssma_fo", model: "Hailuo T2V-01", modelKey: "hailuo", score: 1.0, description: "Single Subject-Multi Action (Flexible Order)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_fo/hailuo/6.mp4", index: 6 },
+  { title: "SSMA-SI - Hailuo T2V-01", category: "human", difficulty: "ssma_sim", model: "Hailuo T2V-01", modelKey: "hailuo", score: 1.0, description: "Single Subject-Multi Action (Simultaneous)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_sim/hailuo/8.mp4", index: 8 },
+  { title: "SSMA-SS - Hailuo T2V-01", category: "human", difficulty: "ssma_ss", model: "Hailuo T2V-01", modelKey: "hailuo", score: 1.0, description: "Single Subject-Multi Action (Strictly Sequential)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_ss/hailuo/2.mp4", index: 2 },
+  { title: "SSSA - Hailuo T2V-01", category: "human", difficulty: "sssa", model: "Hailuo T2V-01", modelKey: "hailuo", score: 1.0, description: "Single Subject-Single Action", videoPath: "https://videobench.github.io/static/video_bench/human/sssa/hailuo/10.mp4", index: 10 },
+
+  // Pika 2.2 videos  
+  { title: "MSMA-FO - Pika 2.2", category: "human", difficulty: "msma_fo", model: "Pika 2.2", modelKey: "pika", score: 0.667, description: "Multi Subject-Multi Action (Flexible Order)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_fo/pika/6.mp4", index: 6 },
+  { title: "MSMA-SI - Pika 2.2", category: "human", difficulty: "msma_sim", model: "Pika 2.2", modelKey: "pika", score: 0.667, description: "Multi Subject-Multi Action (Simultaneous)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_sim/pika/1.mp4", index: 1 },
+  { title: "MSMA-SS - Pika 2.2", category: "human", difficulty: "msma_ss", model: "Pika 2.2", modelKey: "pika", score: 1.0, description: "Multi Subject-Multi Action (Strictly Sequential)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_ss/pika/7.mp4", index: 7 },
+  { title: "MSSA - Pika 2.2", category: "human", difficulty: "mssa", model: "Pika 2.2", modelKey: "pika", score: 0.667, description: "Multi Subject-Single Action", videoPath: "https://videobench.github.io/static/video_bench/human/mssa/pika/5.mp4", index: 5 },
+  { title: "SSMA-FO - Pika 2.2", category: "human", difficulty: "ssma_fo", model: "Pika 2.2", modelKey: "pika", score: 0.667, description: "Single Subject-Multi Action (Flexible Order)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_fo/pika/9.mp4", index: 9 },
+  { title: "SSMA-SI - Pika 2.2", category: "human", difficulty: "ssma_sim", model: "Pika 2.2", modelKey: "pika", score: 0.667, description: "Single Subject-Multi Action (Simultaneous)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_sim/pika/2.mp4", index: 2 },
+  { title: "SSMA-SS - Pika 2.2", category: "human", difficulty: "ssma_ss", model: "Pika 2.2", modelKey: "pika", score: 1.0, description: "Single Subject-Multi Action (Strictly Sequential)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_ss/pika/3.mp4", index: 3 },
+  { title: "SSSA - Pika 2.2", category: "human", difficulty: "sssa", model: "Pika 2.2", modelKey: "pika", score: 0.667, description: "Single Subject-Single Action", videoPath: "https://videobench.github.io/static/video_bench/human/sssa/pika/8.mp4", index: 8 },
+
+  // Sora videos
+  { title: "MSMA-FO - Sora", category: "human", difficulty: "msma_fo", model: "Sora", modelKey: "sora", score: 0.333, description: "Multi Subject-Multi Action (Flexible Order)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_fo/sora/1.mp4", index: 1 },
+  { title: "MSMA-SI - Sora", category: "human", difficulty: "msma_sim", model: "Sora", modelKey: "sora", score: 0.333, description: "Multi Subject-Multi Action (Simultaneous)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_sim/sora/3.mp4", index: 3 },
+  { title: "MSMA-SS - Sora", category: "human", difficulty: "msma_ss", model: "Sora", modelKey: "sora", score: 0.667, description: "Multi Subject-Multi Action (Strictly Sequential)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_ss/sora/4.mp4", index: 4 },
+  { title: "MSSA - Sora", category: "human", difficulty: "mssa", model: "Sora", modelKey: "sora", score: 0.667, description: "Multi Subject-Single Action", videoPath: "https://videobench.github.io/static/video_bench/human/mssa/sora/1.mp4", index: 1 },
+  { title: "SSMA-FO - Sora", category: "human", difficulty: "ssma_fo", model: "Sora", modelKey: "sora", score: 0.667, description: "Single Subject-Multi Action (Flexible Order)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_fo/sora/4.mp4", index: 4 },
+  { title: "SSMA-SI - Sora", category: "human", difficulty: "ssma_sim", model: "Sora", modelKey: "sora", score: 0.667, description: "Single Subject-Multi Action (Simultaneous)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_sim/sora/5.mp4", index: 5 },
+  { title: "SSMA-SS - Sora", category: "human", difficulty: "ssma_ss", model: "Sora", modelKey: "sora", score: 0.667, description: "Single Subject-Multi Action (Strictly Sequential)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_ss/sora/6.mp4", index: 6 },
+  { title: "SSSA - Sora", category: "human", difficulty: "sssa", model: "Sora", modelKey: "sora", score: 0.667, description: "Single Subject-Single Action", videoPath: "https://videobench.github.io/static/video_bench/human/sssa/sora/2.mp4", index: 2 },
+
+  // Luma Ray2 videos
+  { title: "MSMA-FO - Luma Ray2", category: "human", difficulty: "msma_fo", model: "Luma Ray2", modelKey: "luma", score: 0.667, description: "Multi Subject-Multi Action (Flexible Order)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_fo/luma/1.mp4", index: 1 },
+  { title: "MSMA-SI - Luma Ray2", category: "human", difficulty: "msma_sim", model: "Luma Ray2", modelKey: "luma", score: 1.0, description: "Multi Subject-Multi Action (Simultaneous)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_sim/luma/9.mp4", index: 9 },
+  { title: "MSMA-SS - Luma Ray2", category: "human", difficulty: "msma_ss", model: "Luma Ray2", modelKey: "luma", score: 1.0, description: "Multi Subject-Multi Action (Strictly Sequential)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_ss/luma/4.mp4", index: 4 },
+  { title: "MSSA - Luma Ray2", category: "human", difficulty: "mssa", model: "Luma Ray2", modelKey: "luma", score: 1.0, description: "Multi Subject-Single Action", videoPath: "https://videobench.github.io/static/video_bench/human/mssa/luma/6.mp4", index: 6 },
+  { title: "SSMA-FO - Luma Ray2", category: "human", difficulty: "ssma_fo", model: "Luma Ray2", modelKey: "luma", score: 0.667, description: "Single Subject-Multi Action (Flexible Order)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_fo/luma/7.mp4", index: 7 },
+  { title: "SSMA-SI - Luma Ray2", category: "human", difficulty: "ssma_sim", model: "Luma Ray2", modelKey: "luma", score: 1.0, description: "Single Subject-Multi Action (Simultaneous)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_sim/luma/3.mp4", index: 3 },
+  { title: "SSMA-SS - Luma Ray2", category: "human", difficulty: "ssma_ss", model: "Luma Ray2", modelKey: "luma", score: 1.0, description: "Single Subject-Multi Action (Strictly Sequential)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_ss/luma/8.mp4", index: 8 },
+  { title: "SSSA - Luma Ray2", category: "human", difficulty: "sssa", model: "Luma Ray2", modelKey: "luma", score: 1.0, description: "Single Subject-Single Action", videoPath: "https://videobench.github.io/static/video_bench/human/sssa/luma/1.mp4", index: 1 },
+
+  // Veo 2.0 videos
+  { title: "MSMA-FO - Veo 2.0", category: "human", difficulty: "msma_fo", model: "Veo 2.0", modelKey: "veo", score: 1.333, description: "Multi Subject-Multi Action (Flexible Order)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_fo/veo/2.mp4", index: 2 },
+  { title: "MSMA-SI - Veo 2.0", category: "human", difficulty: "msma_sim", model: "Veo 2.0", modelKey: "veo", score: 1.0, description: "Multi Subject-Multi Action (Simultaneous)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_sim/veo/4.mp4", index: 4 },
+  { title: "MSMA-SS - Veo 2.0", category: "human", difficulty: "msma_ss", model: "Veo 2.0", modelKey: "veo", score: 1.0, description: "Multi Subject-Multi Action (Strictly Sequential)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_ss/veo/5.mp4", index: 5 },
+  { title: "MSSA - Veo 2.0", category: "human", difficulty: "mssa", model: "Veo 2.0", modelKey: "veo", score: 1.0, description: "Multi Subject-Single Action", videoPath: "https://videobench.github.io/static/video_bench/human/mssa/veo/7.mp4", index: 7 },
+  { title: "SSMA-FO - Veo 2.0", category: "human", difficulty: "ssma_fo", model: "Veo 2.0", modelKey: "veo", score: 1.0, description: "Single Subject-Multi Action (Flexible Order)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_fo/veo/9.mp4", index: 9 },
+  { title: "SSMA-SI - Veo 2.0", category: "human", difficulty: "ssma_sim", model: "Veo 2.0", modelKey: "veo", score: 1.0, description: "Single Subject-Multi Action (Simultaneous)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_sim/veo/1.mp4", index: 1 },
+  { title: "SSMA-SS - Veo 2.0", category: "human", difficulty: "ssma_ss", model: "Veo 2.0", modelKey: "veo", score: 1.333, description: "Single Subject-Multi Action (Strictly Sequential)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_ss/veo/10.mp4", index: 10 },
+  { title: "SSSA - Veo 2.0", category: "human", difficulty: "sssa", model: "Veo 2.0", modelKey: "veo", score: 1.333, description: "Single Subject-Single Action", videoPath: "https://videobench.github.io/static/video_bench/human/sssa/veo/6.mp4", index: 6 },
+
+  // Runway Gen3 videos
+  { title: "MSMA-FO - Runway Gen3", category: "human", difficulty: "msma_fo", model: "Runway Gen3", modelKey: "gen3", score: 0.333, description: "Multi Subject-Multi Action (Flexible Order)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_fo/gen3/2.mp4", index: 2 },
+  { title: "MSMA-SI - Runway Gen3", category: "human", difficulty: "msma_sim", model: "Runway Gen3", modelKey: "gen3", score: 0.333, description: "Multi Subject-Multi Action (Simultaneous)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_sim/gen3/1.mp4", index: 1 },
+  { title: "MSMA-SS - Runway Gen3", category: "human", difficulty: "msma_ss", model: "Runway Gen3", modelKey: "gen3", score: 0.667, description: "Multi Subject-Multi Action (Strictly Sequential)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_ss/gen3/4.mp4", index: 4 },
+  { title: "MSSA - Runway Gen3", category: "human", difficulty: "mssa", model: "Runway Gen3", modelKey: "gen3", score: 0.667, description: "Multi Subject-Single Action", videoPath: "https://videobench.github.io/static/video_bench/human/mssa/gen3/6.mp4", index: 6 },
+  { title: "SSMA-FO - Runway Gen3", category: "human", difficulty: "ssma_fo", model: "Runway Gen3", modelKey: "gen3", score: 0.667, description: "Single Subject-Multi Action (Flexible Order)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_fo/gen3/5.mp4", index: 5 },
+  { title: "SSMA-SI - Runway Gen3", category: "human", difficulty: "ssma_sim", model: "Runway Gen3", modelKey: "gen3", score: 0.667, description: "Single Subject-Multi Action (Simultaneous)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_sim/gen3/7.mp4", index: 7 },
+  { title: "SSMA-SS - Runway Gen3", category: "human", difficulty: "ssma_ss", model: "Runway Gen3", modelKey: "gen3", score: 0.667, description: "Single Subject-Multi Action (Strictly Sequential)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_ss/gen3/8.mp4", index: 8 },
+  { title: "SSSA - Runway Gen3", category: "human", difficulty: "sssa", model: "Runway Gen3", modelKey: "gen3", score: 0.667, description: "Single Subject-Single Action", videoPath: "https://videobench.github.io/static/video_bench/human/sssa/gen3/9.mp4", index: 9 },
+
+  // Cogvideo 1.5 videos
+  { title: "MSMA-FO - Cogvideo 1.5", category: "human", difficulty: "msma_fo", model: "Cogvideo 1.5", modelKey: "cogvideo", score: 0.333, description: "Multi Subject-Multi Action (Flexible Order)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_fo/cogvideo/1.mp4", index: 1 },
+  { title: "MSMA-SI - Cogvideo 1.5", category: "human", difficulty: "msma_sim", model: "Cogvideo 1.5", modelKey: "cogvideo", score: 0.333, description: "Multi Subject-Multi Action (Simultaneous)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_sim/cogvideo/2.mp4", index: 2 },
+  { title: "MSMA-SS - Cogvideo 1.5", category: "human", difficulty: "msma_ss", model: "Cogvideo 1.5", modelKey: "cogvideo", score: 1.0, description: "Multi Subject-Multi Action (Strictly Sequential)", videoPath: "https://videobench.github.io/static/video_bench/human/msma_ss/cogvideo/5.mp4", index: 5 },
+  { title: "MSSA - Cogvideo 1.5", category: "human", difficulty: "mssa", model: "Cogvideo 1.5", modelKey: "cogvideo", score: 0.667, description: "Multi Subject-Single Action", videoPath: "https://videobench.github.io/static/video_bench/human/mssa/cogvideo/3.mp4", index: 3 },
+  { title: "SSMA-FO - Cogvideo 1.5", category: "human", difficulty: "ssma_fo", model: "Cogvideo 1.5", modelKey: "cogvideo", score: 0.333, description: "Single Subject-Multi Action (Flexible Order)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_fo/cogvideo/4.mp4", index: 4 },
+  { title: "SSMA-SI - Cogvideo 1.5", category: "human", difficulty: "ssma_sim", model: "Cogvideo 1.5", modelKey: "cogvideo", score: 0.333, description: "Single Subject-Multi Action (Simultaneous)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_sim/cogvideo/6.mp4", index: 6 },
+  { title: "SSMA-SS - Cogvideo 1.5", category: "human", difficulty: "ssma_ss", model: "Cogvideo 1.5", modelKey: "cogvideo", score: 0.333, description: "Single Subject-Multi Action (Strictly Sequential)", videoPath: "https://videobench.github.io/static/video_bench/human/ssma_ss/cogvideo/7.mp4", index: 7 },
+  { title: "SSSA - Cogvideo 1.5", category: "human", difficulty: "sssa", model: "Cogvideo 1.5", modelKey: "cogvideo", score: 0.667, description: "Single Subject-Single Action", videoPath: "https://videobench.github.io/static/video_bench/human/sssa/cogvideo/8.mp4", index: 8 }
 ];
 
 function populateVideoGallery() {
@@ -977,21 +1020,30 @@ function populateVideoGallery() {
   
   videoExamples.forEach(video => {
     const card = document.createElement('div');
-    card.className = `video-card ${video.category} ${video.difficulty}`;
+    card.className = `video-card ${video.category} ${video.difficulty} ${video.modelKey}`;
     card.innerHTML = `
       <div class="video-container" style="position: relative; width: 100%; height: 200px; border-radius: 8px; overflow: hidden; background: #f0f0f0;">
         <video 
           controls 
           style="width: 100%; height: 100%; object-fit: cover;"
           poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNiIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPvCfk7kgVmlkZW88L3RleHQ+PC9zdmc+"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
         >
           <source src="${video.videoPath}" type="video/mp4">
-          <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #666;">
-            📹 Video: ${video.title}
-          </div>
+          Your browser does not support the video tag.
         </video>
+        <div style="display: none; align-items: center; justify-content: center; height: 100%; color: #666; text-align: center; padding: 1rem; flex-direction: column;">
+          <div style="font-size: 2rem; margin-bottom: 0.5rem;">📹</div>
+          <div><strong>${video.title}</strong></div>
+          <div style="font-size: 0.8rem; margin-top: 0.5rem; color: #999;">
+            Video: ${video.videoPath}
+          </div>
+          <div style="font-size: 0.8rem; color: #999;">
+            (Video file not accessible)
+          </div>
+        </div>
         <div style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">
-          ${video.score}
+          Score: ${video.score}
         </div>
       </div>
       <h5 class="title is-6" style="margin-top: 1rem;">${video.title}</h5>
@@ -1001,26 +1053,47 @@ function populateVideoGallery() {
         <span class="video-tag">${video.category}</span>
         <span class="video-tag">${video.difficulty.toUpperCase().replace('_', '-')}</span>
       </div>
+      <div style="margin-top: 0.5rem; font-size: 0.7rem; color: #666;">
+        Index: ${video.index} | Path: ${video.videoPath.split('/').slice(-3).join('/')}
+      </div>
     `;
     grid.appendChild(card);
   });
 }
 
-function filterVideos(filter) {
+function filterVideos(filter, buttonElement) {
   const cards = document.querySelectorAll('.video-card');
+  let visibleCount = 0;
+  
   cards.forEach(card => {
+    let shouldShow = false;
+    
     if (filter === 'all') {
-      card.style.display = 'block';
+      shouldShow = true;
     } else {
-      card.style.display = card.classList.contains(filter) ? 'block' : 'none';
+      // Check if the card matches the filter
+      shouldShow = card.classList.contains(filter);
+    }
+    
+    if (shouldShow) {
+      card.style.display = 'block';
+      visibleCount++;
+    } else {
+      card.style.display = 'none';
     }
   });
+  
+  // Update statistics
+  document.getElementById('visibleCount').textContent = visibleCount;
+  document.getElementById('totalCount').textContent = cards.length;
   
   // Update active button
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.classList.remove('active');
   });
-  event.target.classList.add('active');
+  if (buttonElement) {
+    buttonElement.classList.add('active');
+  }
 }
 
 function populateHumanEvalTable(category = 'all') {
@@ -1090,11 +1163,16 @@ document.addEventListener('DOMContentLoaded', function() {
   populateVideoGallery();
   populateHumanEvalTable();
   
+  // Initialize video count display
+  const totalVideos = videoExamples.length;
+  document.getElementById('totalCount').textContent = totalVideos;
+  document.getElementById('visibleCount').textContent = totalVideos;
+  
   // Add event listeners to filter buttons
   document.querySelectorAll('.filter-controls .filter-btn').forEach(btn => {
     btn.addEventListener('click', function() {
       const filter = this.dataset.filter;
-      filterVideos(filter);
+      filterVideos(filter, this);
     });
   });
 });
