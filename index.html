@@ -492,16 +492,16 @@
 <!-- Video Gallery Section -->
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Human Category Video Examples</h2>
+    <h2 class="title is-3 has-text-centered">Human Category Video Gallery</h2>
     
     <div class="video-gallery">
       <div class="content has-text-centered">
         <p class="is-size-5">Explore Human category video examples across all 8 models and difficulty levels</p>
         <p class="is-size-6" style="color: #666; margin-top: 0.5rem;">
-          Featuring 64 videos (8 models × 8 difficulty levels) from our comprehensive human evaluation benchmark
+          64 representative videos (8 models × 8 difficulty levels) with access to all 640 videos
         </p>
         <p class="is-size-7" style="color: #888; margin-top: 0.5rem;">
-          Videos are sorted by performance score. Use filters to explore specific models or difficulty levels.
+          Each card shows the best-performing video. Click "View All 10 Videos" to see all examples for that combination.
         </p>
       </div>
       
@@ -534,7 +534,10 @@
       
       <div id="videoStats" style="text-align: center; margin-top: 2rem; padding: 1rem; background: white; border-radius: 8px;">
         <p class="is-size-6" style="color: #666;">
-          Showing <span id="visibleCount">64</span> of <span id="totalCount">64</span> videos
+          Showing <span id="visibleCount">64 videos in 64 combinations</span> of <span id="totalCount">640 total videos (64 combinations)</span>
+        </p>
+        <p class="is-size-7" style="color: #888; margin-top: 0.5rem;">
+          💡 Click "View All 10 Videos" on any card to see all videos for that model-difficulty combination
         </p>
       </div>
     </div>
@@ -1061,9 +1064,78 @@ function populateVideoGallery() {
   });
 }
 
+function toggleVideoExpansion(combinationId, button) {
+  const [modelKey, difficulty] = combinationId.split('_');
+  const card = document.querySelector(`[data-combination="${combinationId}"]`);
+  const expandedContainer = card.querySelector('.expanded-videos');
+  const expandedGrid = card.querySelector('.expanded-grid');
+  const videoCount = card.querySelector('.video-count');
+  
+  const isExpanded = expandedContainer.style.display !== 'none';
+  
+  if (isExpanded) {
+    // 收起视频
+    expandedContainer.style.display = 'none';
+    button.textContent = '📹 View All 10 Videos';
+    videoCount.textContent = 'Showing 1 of 10 videos';
+  } else {
+    // 展开视频
+    if (expandedGrid.children.length === 0) {
+      // 生成所有10个视频
+      for (let i = 1; i <= 10; i++) {
+        const videoPath = `https://videobench.github.io/static/video_bench/human/${difficulty}/${modelKey}/${i}.mp4`;
+        const videoItem = document.createElement('div');
+        videoItem.innerHTML = `
+          <div style="position: relative; background: white; border-radius: 6px; overflow: hidden; border: 1px solid #e1ecf4; transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+            <video 
+              controls 
+              style="width: 100%; height: 100px; object-fit: cover;"
+              poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjhmOWZhIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPvCfk7kgVmlkZW8gJHtpfTwvdGV4dD48L3N2Zz4="
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            >
+              <source src="${videoPath}" type="video/mp4">
+            </video>
+            <div style="display: none; align-items: center; justify-content: center; height: 100px; color: #666; font-size: 0.8rem; flex-direction: column;">
+              <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">📹</div>
+              <div>Video ${i}</div>
+            </div>
+            <div style="position: absolute; bottom: 4px; right: 6px; background: rgba(0,0,0,0.8); color: white; padding: 2px 6px; border-radius: 3px; font-size: 0.7rem; font-weight: 500;">
+              #${i}
+            </div>
+            <div style="position: absolute; top: 4px; left: 6px; background: rgba(50, 115, 220, 0.9); color: white; padding: 1px 4px; border-radius: 2px; font-size: 0.6rem;">
+              ${i}/10
+            </div>
+          </div>
+        `;
+        expandedGrid.appendChild(videoItem);
+      }
+    }
+    
+    expandedContainer.style.display = 'block';
+    button.textContent = '🔼 Hide Additional Videos';
+    videoCount.textContent = 'Showing all 10 videos';
+  }
+  
+  // 更新统计显示
+  updateVideoStatistics();
+}
+
+function updateVideoStatistics() {
+  const cards = document.querySelectorAll('.video-card:not([style*="display: none"])');
+  let totalVisibleVideos = 0;
+  
+  cards.forEach(card => {
+    const expandedContainer = card.querySelector('.expanded-videos');
+    const isExpanded = expandedContainer && expandedContainer.style.display !== 'none';
+    totalVisibleVideos += isExpanded ? 10 : 1;
+  });
+  
+  document.getElementById('visibleCount').textContent = `${totalVisibleVideos} videos in ${cards.length} combinations`;
+}
+
 function filterVideos(filter, buttonElement) {
   const cards = document.querySelectorAll('.video-card');
-  let visibleCount = 0;
+  let visibleCards = 0;
   
   cards.forEach(card => {
     let shouldShow = false;
@@ -1077,15 +1149,15 @@ function filterVideos(filter, buttonElement) {
     
     if (shouldShow) {
       card.style.display = 'block';
-      visibleCount++;
+      visibleCards++;
     } else {
       card.style.display = 'none';
     }
   });
   
   // Update statistics
-  document.getElementById('visibleCount').textContent = visibleCount;
-  document.getElementById('totalCount').textContent = cards.length;
+  updateVideoStatistics();
+  document.getElementById('totalCount').textContent = '640 total videos (64 combinations)';
   
   // Update active button
   document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -1164,9 +1236,8 @@ document.addEventListener('DOMContentLoaded', function() {
   populateHumanEvalTable();
   
   // Initialize video count display
-  const totalVideos = videoExamples.length;
-  document.getElementById('totalCount').textContent = totalVideos;
-  document.getElementById('visibleCount').textContent = totalVideos;
+  document.getElementById('visibleCount').textContent = '64 videos in 64 combinations';
+  document.getElementById('totalCount').textContent = '640 total videos (64 combinations)';
   
   // Add event listeners to filter buttons
   document.querySelectorAll('.filter-controls .filter-btn').forEach(btn => {
