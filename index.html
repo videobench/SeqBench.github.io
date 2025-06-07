@@ -159,11 +159,8 @@
     .video-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
+      gap: 1.5rem;
       margin-top: 2rem;
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
     }
     
     .video-card {
@@ -476,19 +473,27 @@
     
     <div class="video-gallery">
       <div class="content has-text-centered">
-        <p class="is-size-5">Representative video examples from each content category showcasing different models and difficulty levels</p>
-        <p class="is-size-6" style="color: #666; margin-top: 0.5rem;">
-          <em>Note: These are selected samples from our complete dataset of 2,560 videos. The full dataset is available through our 
-          <a href="https://huggingface.co/datasets/AcmmmVideobench/Acmmm2025_video_benchmark" style="color: #3273dc;">HuggingFace repository</a>.</em>
-        </p>
+        <p class="is-size-5">Explore 30 carefully selected video examples showcasing different content types, difficulty levels, and model performances</p>
       </div>
       
       <div class="filter-controls">
-        <button class="filter-btn active" data-filter="all">All Categories</button>
+        <button class="filter-btn active" data-filter="all">All Videos</button>
         <button class="filter-btn" data-filter="animal">🐾 Animal</button>
         <button class="filter-btn" data-filter="human">👤 Human</button>
         <button class="filter-btn" data-filter="object">📦 Object</button>
         <button class="filter-btn" data-filter="imaginary">✨ Imaginary</button>
+        <button class="filter-btn" data-filter="sssa">SSSA</button>
+        <button class="filter-btn" data-filter="ssma">SSMA</button>
+        <button class="filter-btn" data-filter="mssa">MSSA</button>
+        <button class="filter-btn" data-filter="msma">MSMA</button>
+        <button class="filter-btn" data-filter="kling">Kling 2.0</button>
+        <button class="filter-btn" data-filter="cogvideo">Cogvideo 1.5</button>
+        <button class="filter-btn" data-filter="hailuo">Hailuo T2V</button>
+        <button class="filter-btn" data-filter="pika">Pika 2.2</button>
+        <button class="filter-btn" data-filter="sora">Sora</button>
+        <button class="filter-btn" data-filter="luma">Luma Ray2</button>
+        <button class="filter-btn" data-filter="veo">Veo 2.0</button>
+        <button class="filter-btn" data-filter="gen3">Gen3</button>
       </div>
       
       <div class="video-grid" id="videoGrid">
@@ -888,38 +893,194 @@ const humanEvalData = {
   }
 };
 
-// Video examples data - 极简版：每类别1个代表性视频
+// Video examples data - 精选30个核心代表性视频
 const videoExamples = [
-  // === HUMAN 类别 ===
+  // === HUMAN 类别 (8个视频) ===
   {
-    path: "video_bench/human/msma_fo/kling/2.mp4",
+    path: "video_bench/human/sssa/kling/2.mp4",
     category: "human",
-    difficulty: "msma_fo",
+    difficulty: "sssa",
     model: "Kling 2.0"
   },
-  
-  // === ANIMAL 类别 ===
   {
-    path: "video_bench/animal/ssma_sim/cogvideo/4.mp4",
+    path: "video_bench/human/mssa/cogvideo/5.mp4",
+    category: "human", 
+    difficulty: "mssa",
+    model: "Cogvideo 1.5"
+  },
+  {
+    path: "video_bench/human/ssma_fo/hailuo/1.mp4",
+    category: "human",
+    difficulty: "ssma_fo", 
+    model: "Hailuo T2V-01"
+  },
+  {
+    path: "video_bench/human/ssma_sim/pika/6.mp4",
+    category: "human",
+    difficulty: "ssma_sim",
+    model: "Pika 2.2"
+  },
+  {
+    path: "video_bench/human/ssma_ss/sora/3.mp4",
+    category: "human",
+    difficulty: "ssma_ss",
+    model: "Sora"
+  },
+  {
+    path: "video_bench/human/msma_fo/luma/8.mp4",
+    category: "human",
+    difficulty: "msma_fo",
+    model: "Luma Ray2"
+  },
+  {
+    path: "video_bench/human/msma_sim/veo/4.mp4",
+    category: "human",
+    difficulty: "msma_sim",
+    model: "Veo 2.0"
+  },
+  {
+    path: "video_bench/human/msma_ss/gen3/7.mp4",
+    category: "human",
+    difficulty: "msma_ss",
+    model: "Runway Gen3"
+  },
+
+  // === ANIMAL 类别 (8个视频) ===
+  {
+    path: "video_bench/animal/sssa/kling/3.mp4",
     category: "animal",
+    difficulty: "sssa",
+    model: "Kling 2.0"
+  },
+  {
+    path: "video_bench/animal/mssa/hailuo/6.mp4",
+    category: "animal",
+    difficulty: "mssa",
+    model: "Hailuo T2V-01"
+  },
+  {
+    path: "video_bench/animal/ssma_fo/cogvideo/1.mp4",
+    category: "animal",
+    difficulty: "ssma_fo",
+    model: "Cogvideo 1.5"
+  },
+  {
+    path: "video_bench/animal/ssma_sim/pika/8.mp4",
+    category: "animal",
+    difficulty: "ssma_sim",
+    model: "Pika 2.2"
+  },
+  {
+    path: "video_bench/animal/ssma_ss/sora/2.mp4",
+    category: "animal",
+    difficulty: "ssma_ss",
+    model: "Sora"
+  },
+  {
+    path: "video_bench/animal/msma_fo/luma/5.mp4",
+    category: "animal",
+    difficulty: "msma_fo",
+    model: "Luma Ray2"
+  },
+  {
+    path: "video_bench/animal/msma_sim/veo/9.mp4",
+    category: "animal",
+    difficulty: "msma_sim",
+    model: "Veo 2.0"
+  },
+  {
+    path: "video_bench/animal/msma_ss/gen3/0.mp4",
+    category: "animal",
+    difficulty: "msma_ss",
+    model: "Runway Gen3"
+  },
+
+  // === OBJECT 类别 (7个视频) ===
+  {
+    path: "video_bench/object/sssa/kling/4.mp4",
+    category: "object",
+    difficulty: "sssa",
+    model: "Kling 2.0"
+  },
+  {
+    path: "video_bench/object/mssa/hailuo/7.mp4",
+    category: "object",
+    difficulty: "mssa",
+    model: "Hailuo T2V-01"
+  },
+  {
+    path: "video_bench/object/ssma_fo/cogvideo/2.mp4",
+    category: "object",
+    difficulty: "ssma_fo",
+    model: "Cogvideo 1.5"
+  },
+  {
+    path: "video_bench/object/ssma_sim/pika/9.mp4",
+    category: "object",
+    difficulty: "ssma_sim",
+    model: "Pika 2.2"
+  },
+  {
+    path: "video_bench/object/ssma_ss/sora/1.mp4",
+    category: "object",
+    difficulty: "ssma_ss",
+    model: "Sora"
+  },
+  {
+    path: "video_bench/object/msma_fo/luma/6.mp4",
+    category: "object",
+    difficulty: "msma_fo",
+    model: "Luma Ray2"
+  },
+  {
+    path: "video_bench/object/msma_sim/veo/3.mp4",
+    category: "object",
+    difficulty: "msma_sim",
+    model: "Veo 2.0"
+  },
+
+  // === IMAGINARY 类别 (7个视频) ===
+  {
+    path: "video_bench/imaginary/sssa/hailuo/2.mp4",
+    category: "imaginary",
+    difficulty: "sssa",
+    model: "Hailuo T2V-01"
+  },
+  {
+    path: "video_bench/imaginary/mssa/kling/5.mp4",
+    category: "imaginary",
+    difficulty: "mssa",
+    model: "Kling 2.0"
+  },
+  {
+    path: "video_bench/imaginary/ssma_fo/pika/8.mp4",
+    category: "imaginary",
+    difficulty: "ssma_fo",
+    model: "Pika 2.2"
+  },
+  {
+    path: "video_bench/imaginary/ssma_sim/cogvideo/0.mp4",
+    category: "imaginary",
     difficulty: "ssma_sim",
     model: "Cogvideo 1.5"
   },
-  
-  // === OBJECT 类别 ===
   {
-    path: "video_bench/object/msma_ss/pika/7.mp4",
-    category: "object",
-    difficulty: "msma_ss",
-    model: "Pika 2.2"
-  },
-  
-  // === IMAGINARY 类别 ===
-  {
-    path: "video_bench/imaginary/ssma_fo/sora/5.mp4",
+    path: "video_bench/imaginary/ssma_ss/sora/7.mp4",
     category: "imaginary",
-    difficulty: "ssma_fo",
+    difficulty: "ssma_ss",
     model: "Sora"
+  },
+  {
+    path: "video_bench/imaginary/msma_fo/luma/4.mp4",
+    category: "imaginary",
+    difficulty: "msma_fo",
+    model: "Luma Ray2"
+  },
+  {
+    path: "video_bench/imaginary/msma_sim/veo/9.mp4",
+    category: "imaginary",
+    difficulty: "msma_sim",
+    model: "Veo 2.0"
   }
 ];
 
@@ -974,10 +1135,47 @@ function filterVideos(filter) {
   cards.forEach(card => {
     if (filter === 'all') {
       card.style.display = 'block';
-    } else if (card.classList.contains(filter)) {
-      card.style.display = 'block';
     } else {
-      card.style.display = 'none';
+      // 检查类别过滤
+      if (card.classList.contains(filter)) {
+        card.style.display = 'block';
+      }
+      // 检查难度级别过滤 (SSMA包含所有ssma_*类型)
+      else if (filter === 'ssma' && (card.classList.contains('ssma_fo') || card.classList.contains('ssma_sim') || card.classList.contains('ssma_ss'))) {
+        card.style.display = 'block';
+      }
+      // 检查MSMA过滤
+      else if (filter === 'msma' && (card.classList.contains('msma_fo') || card.classList.contains('msma_sim') || card.classList.contains('msma_ss'))) {
+        card.style.display = 'block';
+      }
+      // 检查模型过滤
+      else if (filter === 'kling' && card.innerHTML.includes('Kling 2.0')) {
+        card.style.display = 'block';
+      }
+      else if (filter === 'cogvideo' && card.innerHTML.includes('Cogvideo 1.5')) {
+        card.style.display = 'block';
+      }
+      else if (filter === 'hailuo' && card.innerHTML.includes('Hailuo T2V-01')) {
+        card.style.display = 'block';
+      }
+      else if (filter === 'pika' && card.innerHTML.includes('Pika 2.2')) {
+        card.style.display = 'block';
+      }
+      else if (filter === 'sora' && card.innerHTML.includes('Sora')) {
+        card.style.display = 'block';
+      }
+      else if (filter === 'luma' && card.innerHTML.includes('Luma Ray2')) {
+        card.style.display = 'block';
+      }
+      else if (filter === 'veo' && card.innerHTML.includes('Veo 2.0')) {
+        card.style.display = 'block';
+      }
+      else if (filter === 'gen3' && card.innerHTML.includes('Runway Gen3')) {
+        card.style.display = 'block';
+      }
+      else {
+        card.style.display = 'none';
+      }
     }
   });
 }
