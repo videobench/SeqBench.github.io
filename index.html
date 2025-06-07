@@ -475,23 +475,27 @@
 <!-- Video Gallery Section -->
 <section class="section">
   <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Video Examples Gallery</h2>
+    <h2 class="title is-3 has-text-centered">Human Category Video Examples</h2>
     
     <div class="video-gallery">
       <div class="content has-text-centered">
-        <p class="is-size-5">Explore video examples categorized by content type, difficulty level, and model performance</p>
+        <p class="is-size-5">Explore Human category video examples across different difficulty levels and models</p>
+        <p class="is-size-6" style="color: #666; margin-top: 0.5rem;">
+          Featuring 8 videos showcasing Kling 2.0's performance across all difficulty levels from our benchmark
+        </p>
       </div>
       
       <div class="filter-controls">
         <button class="filter-btn active" data-filter="all">All Videos</button>
-        <button class="filter-btn" data-filter="animal">🐾 Animal</button>
         <button class="filter-btn" data-filter="human">👤 Human</button>
-        <button class="filter-btn" data-filter="object">📦 Object</button>
-        <button class="filter-btn" data-filter="imaginary">✨ Imaginary</button>
         <button class="filter-btn" data-filter="sssa">SSSA</button>
-        <button class="filter-btn" data-filter="ssma">SSMA</button>
         <button class="filter-btn" data-filter="mssa">MSSA</button>
-        <button class="filter-btn" data-filter="msma">MSMA</button>
+        <button class="filter-btn" data-filter="ssma_fo">SSMA-FO</button>
+        <button class="filter-btn" data-filter="ssma_si">SSMA-SI</button>
+        <button class="filter-btn" data-filter="ssma_ss">SSMA-SS</button>
+        <button class="filter-btn" data-filter="msma_fo">MSMA-FO</button>
+        <button class="filter-btn" data-filter="msma_si">MSMA-SI</button>
+        <button class="filter-btn" data-filter="msma_ss">MSMA-SS</button>
       </div>
       
       <div class="video-grid" id="videoGrid">
@@ -891,55 +895,79 @@ const humanEvalData = {
   }
 };
 
-// Video examples data
+// Video examples data generated from CSV analysis
 const videoExamples = [
   {
-    title: "Cat chases ball then sits",
-    category: "animal", 
-    difficulty: "ssma",
-    model: "Kling 2.0",
-    score: 0.85,
-    description: "Single subject performing multiple sequential actions"
+    "title": "Multi Subject-Single Action",
+    "category": "human",
+    "difficulty": "mssa",
+    "model": "Kling 2.0",
+    "score": 2,
+    "description": "Multi Subject-Single Action",
+    "videoPath": "./video_bench/human/mssa/kling/3.mp4"
   },
   {
-    title: "Chef cooks pasta while assistant prepares salad",
-    category: "human",
-    difficulty: "msma", 
-    model: "Cogvideo 1.5",
-    score: 0.72,
-    description: "Multiple subjects performing different simultaneous actions"
+    "title": "Single Subject-Single Action",
+    "category": "human",
+    "difficulty": "sssa",
+    "model": "Kling 2.0",
+    "score": 2,
+    "description": "Single Subject-Single Action",
+    "videoPath": "./video_bench/human/sssa/kling/3.mp4"
   },
   {
-    title: "Magic wand transforms objects",
-    category: "imaginary",
-    difficulty: "ssma",
-    model: "Sora", 
-    score: 0.68,
-    description: "Fantastical transformation sequence"
+    "title": "Multi Subject-Multi Action (Flexible Order)",
+    "category": "human",
+    "difficulty": "msma_fo",
+    "model": "Kling 2.0",
+    "score": 1.667,
+    "description": "Multi Subject-Multi Action (Flexible Order)",
+    "videoPath": "./video_bench/human/msma_fo/kling/9.mp4"
   },
   {
-    title: "Ball rolls and hits another ball",
-    category: "object",
-    difficulty: "mssa",
-    model: "Pika 2.2",
-    score: 0.61,
-    description: "Multiple objects in collision interaction"
+    "title": "Multi Subject-Multi Action (Simultaneous)",
+    "category": "human",
+    "difficulty": "msma_si",
+    "model": "Kling 2.0",
+    "score": 1.667,
+    "description": "Multi Subject-Multi Action (Simultaneous)",
+    "videoPath": "./video_bench/human/msma_sim/kling/7.mp4"
   },
   {
-    title: "Dog fetches stick",
-    category: "animal",
-    difficulty: "sssa", 
-    model: "Hailuo T2V-01",
-    score: 0.89,
-    description: "Simple single action scenario"
+    "title": "Single Subject-Multi Action (Flexible Order)",
+    "category": "human",
+    "difficulty": "ssma_fo",
+    "model": "Kling 2.0",
+    "score": 1.5,
+    "description": "Single Subject-Multi Action (Flexible Order)",
+    "videoPath": "./video_bench/human/ssma_fo/kling/1.mp4"
   },
   {
-    title: "Person walks, sits, then reads book",
-    category: "human",
-    difficulty: "ssma",
-    model: "Veo 2.0", 
-    score: 0.75,
-    description: "Sequential human activities"
+    "title": "Single Subject-Multi Action (Simultaneous)",
+    "category": "human",
+    "difficulty": "ssma_si",
+    "model": "Kling 2.0",
+    "score": 1.5,
+    "description": "Single Subject-Multi Action (Simultaneous)",
+    "videoPath": "./video_bench/human/ssma_sim/kling/5.mp4"
+  },
+  {
+    "title": "Single Subject-Multi Action (Strictly Sequential)",
+    "category": "human",
+    "difficulty": "ssma_ss",
+    "model": "Kling 2.0",
+    "score": 1.5,
+    "description": "Single Subject-Multi Action (Strictly Sequential)",
+    "videoPath": "./video_bench/human/ssma_ss/kling/1.mp4"
+  },
+  {
+    "title": "Multi Subject-Multi Action (Strictly Sequential)",
+    "category": "human",
+    "difficulty": "msma_ss",
+    "model": "Kling 2.0",
+    "score": 1,
+    "description": "Multi Subject-Multi Action (Strictly Sequential)",
+    "videoPath": "./video_bench/human/msma_ss/kling/5.mp4"
   }
 ];
 
@@ -951,17 +979,27 @@ function populateVideoGallery() {
     const card = document.createElement('div');
     card.className = `video-card ${video.category} ${video.difficulty}`;
     card.innerHTML = `
-      <div class="video-placeholder">
-        <div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">
-          ${video.score.toFixed(2)}
+      <div class="video-container" style="position: relative; width: 100%; height: 200px; border-radius: 8px; overflow: hidden; background: #f0f0f0;">
+        <video 
+          controls 
+          style="width: 100%; height: 100%; object-fit: cover;"
+          poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNiIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPvCfk7kgVmlkZW88L3RleHQ+PC9zdmc+"
+        >
+          <source src="${video.videoPath}" type="video/mp4">
+          <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #666;">
+            📹 Video: ${video.title}
+          </div>
+        </video>
+        <div style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">
+          ${video.score}
         </div>
       </div>
-      <h5 class="title is-6">${video.title}</h5>
+      <h5 class="title is-6" style="margin-top: 1rem;">${video.title}</h5>
       <p class="is-size-7">${video.description}</p>
       <div class="video-tags">
         <span class="video-tag">${video.model}</span>
         <span class="video-tag">${video.category}</span>
-        <span class="video-tag">${video.difficulty.toUpperCase()}</span>
+        <span class="video-tag">${video.difficulty.toUpperCase().replace('_', '-')}</span>
       </div>
     `;
     grid.appendChild(card);
