@@ -473,7 +473,7 @@
     
     <div class="video-gallery">
       <div class="content has-text-centered">
-        <p class="is-size-5">Explore video examples categorized by content type, difficulty level, and model performance</p>
+        <p class="is-size-5">Explore 30 carefully selected video examples showcasing different content types, difficulty levels, and model performances</p>
       </div>
       
       <div class="filter-controls">
@@ -488,8 +488,12 @@
         <button class="filter-btn" data-filter="msma">MSMA</button>
         <button class="filter-btn" data-filter="kling">Kling 2.0</button>
         <button class="filter-btn" data-filter="cogvideo">Cogvideo 1.5</button>
-        <button class="filter-btn" data-filter="hailuo">Hailuo T2V-01</button>
+        <button class="filter-btn" data-filter="hailuo">Hailuo T2V</button>
         <button class="filter-btn" data-filter="pika">Pika 2.2</button>
+        <button class="filter-btn" data-filter="sora">Sora</button>
+        <button class="filter-btn" data-filter="luma">Luma Ray2</button>
+        <button class="filter-btn" data-filter="veo">Veo 2.0</button>
+        <button class="filter-btn" data-filter="gen3">Gen3</button>
       </div>
       
       <div class="video-grid" id="videoGrid">
@@ -889,9 +893,9 @@ const humanEvalData = {
   }
 };
 
-// Video examples data - 精选100个代表性视频
+// Video examples data - 精选30个核心代表性视频
 const videoExamples = [
-  // === HUMAN 类别 (25个视频) ===
+  // === HUMAN 类别 (8个视频) ===
   {
     path: "video_bench/human/sssa/kling/2.mp4",
     category: "human",
@@ -899,151 +903,49 @@ const videoExamples = [
     model: "Kling 2.0"
   },
   {
-    path: "video_bench/human/sssa/cogvideo/5.mp4",
+    path: "video_bench/human/mssa/cogvideo/5.mp4",
     category: "human", 
-    difficulty: "sssa",
+    difficulty: "mssa",
     model: "Cogvideo 1.5"
   },
   {
-    path: "video_bench/human/sssa/hailuo/1.mp4",
+    path: "video_bench/human/ssma_fo/hailuo/1.mp4",
     category: "human",
-    difficulty: "sssa", 
+    difficulty: "ssma_fo", 
     model: "Hailuo T2V-01"
   },
   {
-    path: "video_bench/human/mssa/pika/7.mp4",
-    category: "human",
-    difficulty: "mssa",
-    model: "Pika 2.2"
-  },
-  {
-    path: "video_bench/human/mssa/sora/3.mp4",
-    category: "human",
-    difficulty: "mssa",
-    model: "Sora"
-  },
-  {
-    path: "video_bench/human/mssa/veo/9.mp4",
-    category: "human",
-    difficulty: "mssa",
-    model: "Veo 2.0"
-  },
-  {
-    path: "video_bench/human/ssma_fo/kling/4.mp4",
-    category: "human",
-    difficulty: "ssma_fo",
-    model: "Kling 2.0"
-  },
-  {
-    path: "video_bench/human/ssma_fo/gen3/6.mp4",
-    category: "human",
-    difficulty: "ssma_fo",
-    model: "Runway Gen3"
-  },
-  {
-    path: "video_bench/human/ssma_fo/luma/2.mp4",
-    category: "human",
-    difficulty: "ssma_fo",
-    model: "Luma Ray2"
-  },
-  {
-    path: "video_bench/human/ssma_sim/cogvideo/8.mp4",
-    category: "human",
-    difficulty: "ssma_sim",
-    model: "Cogvideo 1.5"
-  },
-  {
-    path: "video_bench/human/ssma_sim/hailuo/0.mp4",
-    category: "human",
-    difficulty: "ssma_sim",
-    model: "Hailuo T2V-01"
-  },
-  {
-    path: "video_bench/human/ssma_sim/pika/5.mp4",
+    path: "video_bench/human/ssma_sim/pika/6.mp4",
     category: "human",
     difficulty: "ssma_sim",
     model: "Pika 2.2"
   },
   {
-    path: "video_bench/human/ssma_ss/kling/1.mp4",
-    category: "human",
-    difficulty: "ssma_ss",
-    model: "Kling 2.0"
-  },
-  {
-    path: "video_bench/human/ssma_ss/sora/7.mp4",
+    path: "video_bench/human/ssma_ss/sora/3.mp4",
     category: "human",
     difficulty: "ssma_ss",
     model: "Sora"
   },
   {
-    path: "video_bench/human/ssma_ss/veo/3.mp4",
-    category: "human",
-    difficulty: "ssma_ss",
-    model: "Veo 2.0"
-  },
-  {
-    path: "video_bench/human/msma_fo/cogvideo/4.mp4",
-    category: "human",
-    difficulty: "msma_fo",
-    model: "Cogvideo 1.5"
-  },
-  {
-    path: "video_bench/human/msma_fo/gen3/9.mp4",
-    category: "human",
-    difficulty: "msma_fo",
-    model: "Runway Gen3"
-  },
-  {
-    path: "video_bench/human/msma_fo/luma/6.mp4",
+    path: "video_bench/human/msma_fo/luma/8.mp4",
     category: "human",
     difficulty: "msma_fo",
     model: "Luma Ray2"
   },
   {
-    path: "video_bench/human/msma_sim/kling/0.mp4",
+    path: "video_bench/human/msma_sim/veo/4.mp4",
     category: "human",
     difficulty: "msma_sim",
-    model: "Kling 2.0"
-  },
-  {
-    path: "video_bench/human/msma_sim/hailuo/8.mp4",
-    category: "human",
-    difficulty: "msma_sim",
-    model: "Hailuo T2V-01"
-  },
-  {
-    path: "video_bench/human/msma_sim/pika/2.mp4",
-    category: "human",
-    difficulty: "msma_sim",
-    model: "Pika 2.2"
-  },
-  {
-    path: "video_bench/human/msma_ss/sora/5.mp4",
-    category: "human",
-    difficulty: "msma_ss",
-    model: "Sora"
-  },
-  {
-    path: "video_bench/human/msma_ss/veo/1.mp4",
-    category: "human",
-    difficulty: "msma_ss",
     model: "Veo 2.0"
   },
   {
-    path: "video_bench/human/msma_ss/cogvideo/7.mp4",
-    category: "human",
-    difficulty: "msma_ss",
-    model: "Cogvideo 1.5"
-  },
-  {
-    path: "video_bench/human/msma_ss/gen3/4.mp4",
+    path: "video_bench/human/msma_ss/gen3/7.mp4",
     category: "human",
     difficulty: "msma_ss",
     model: "Runway Gen3"
   },
 
-  // === ANIMAL 类别 (25个视频) ===
+  // === ANIMAL 类别 (8个视频) ===
   {
     path: "video_bench/animal/sssa/kling/3.mp4",
     category: "animal",
@@ -1051,151 +953,49 @@ const videoExamples = [
     model: "Kling 2.0"
   },
   {
-    path: "video_bench/animal/sssa/hailuo/6.mp4",
+    path: "video_bench/animal/mssa/hailuo/6.mp4",
     category: "animal",
-    difficulty: "sssa",
+    difficulty: "mssa",
     model: "Hailuo T2V-01"
   },
   {
-    path: "video_bench/animal/sssa/cogvideo/1.mp4",
+    path: "video_bench/animal/ssma_fo/cogvideo/1.mp4",
     category: "animal",
-    difficulty: "sssa",
+    difficulty: "ssma_fo",
     model: "Cogvideo 1.5"
   },
   {
-    path: "video_bench/animal/mssa/pika/8.mp4",
+    path: "video_bench/animal/ssma_sim/pika/8.mp4",
     category: "animal",
-    difficulty: "mssa",
+    difficulty: "ssma_sim",
     model: "Pika 2.2"
   },
   {
-    path: "video_bench/animal/mssa/sora/2.mp4",
+    path: "video_bench/animal/ssma_ss/sora/2.mp4",
     category: "animal",
-    difficulty: "mssa",
+    difficulty: "ssma_ss",
     model: "Sora"
   },
   {
-    path: "video_bench/animal/mssa/luma/5.mp4",
+    path: "video_bench/animal/msma_fo/luma/5.mp4",
     category: "animal",
-    difficulty: "mssa",
+    difficulty: "msma_fo",
     model: "Luma Ray2"
   },
   {
-    path: "video_bench/animal/ssma_fo/veo/9.mp4",
+    path: "video_bench/animal/msma_sim/veo/9.mp4",
     category: "animal",
-    difficulty: "ssma_fo",
+    difficulty: "msma_sim",
     model: "Veo 2.0"
   },
   {
-    path: "video_bench/animal/ssma_fo/kling/0.mp4",
+    path: "video_bench/animal/msma_ss/gen3/0.mp4",
     category: "animal",
-    difficulty: "ssma_fo",
-    model: "Kling 2.0"
-  },
-  {
-    path: "video_bench/animal/ssma_fo/gen3/7.mp4",
-    category: "animal",
-    difficulty: "ssma_fo",
+    difficulty: "msma_ss",
     model: "Runway Gen3"
-  },
-  {
-    path: "video_bench/animal/ssma_sim/cogvideo/4.mp4",
-    category: "animal",
-    difficulty: "ssma_sim",
-    model: "Cogvideo 1.5"
-  },
-  {
-    path: "video_bench/animal/ssma_sim/hailuo/3.mp4",
-    category: "animal",
-    difficulty: "ssma_sim",
-    model: "Hailuo T2V-01"
-  },
-  {
-    path: "video_bench/animal/ssma_sim/pika/6.mp4",
-    category: "animal",
-    difficulty: "ssma_sim",
-    model: "Pika 2.2"
-  },
-  {
-    path: "video_bench/animal/ssma_ss/sora/1.mp4",
-    category: "animal",
-    difficulty: "ssma_ss",
-    model: "Sora"
-  },
-  {
-    path: "video_bench/animal/ssma_ss/luma/8.mp4",
-    category: "animal",
-    difficulty: "ssma_ss",
-    model: "Luma Ray2"
-  },
-  {
-    path: "video_bench/animal/ssma_ss/veo/2.mp4",
-    category: "animal",
-    difficulty: "ssma_ss",
-    model: "Veo 2.0"
-  },
-  {
-    path: "video_bench/animal/msma_fo/kling/5.mp4",
-    category: "animal",
-    difficulty: "msma_fo",
-    model: "Kling 2.0"
-  },
-  {
-    path: "video_bench/animal/msma_fo/cogvideo/9.mp4",
-    category: "animal",
-    difficulty: "msma_fo",
-    model: "Cogvideo 1.5"
-  },
-  {
-    path: "video_bench/animal/msma_fo/gen3/0.mp4",
-    category: "animal",
-    difficulty: "msma_fo",
-    model: "Runway Gen3"
-  },
-  {
-    path: "video_bench/animal/msma_sim/hailuo/7.mp4",
-    category: "animal",
-    difficulty: "msma_sim",
-    model: "Hailuo T2V-01"
-  },
-  {
-    path: "video_bench/animal/msma_sim/pika/4.mp4",
-    category: "animal",
-    difficulty: "msma_sim",
-    model: "Pika 2.2"
-  },
-  {
-    path: "video_bench/animal/msma_sim/sora/3.mp4",
-    category: "animal",
-    difficulty: "msma_sim",
-    model: "Sora"
-  },
-  {
-    path: "video_bench/animal/msma_ss/luma/6.mp4",
-    category: "animal",
-    difficulty: "msma_ss",
-    model: "Luma Ray2"
-  },
-  {
-    path: "video_bench/animal/msma_ss/veo/1.mp4",
-    category: "animal",
-    difficulty: "msma_ss",
-    model: "Veo 2.0"
-  },
-  {
-    path: "video_bench/animal/msma_ss/kling/8.mp4",
-    category: "animal",
-    difficulty: "msma_ss",
-    model: "Kling 2.0"
-  },
-  {
-    path: "video_bench/animal/msma_ss/cogvideo/2.mp4",
-    category: "animal",
-    difficulty: "msma_ss",
-    model: "Cogvideo 1.5"
   },
 
-  // === OBJECT 类别 (25个视频) ===
+  // === OBJECT 类别 (7个视频) ===
   {
     path: "video_bench/object/sssa/kling/4.mp4",
     category: "object",
@@ -1203,151 +1003,43 @@ const videoExamples = [
     model: "Kling 2.0"
   },
   {
-    path: "video_bench/object/sssa/hailuo/7.mp4",
+    path: "video_bench/object/mssa/hailuo/7.mp4",
     category: "object",
-    difficulty: "sssa",
+    difficulty: "mssa",
     model: "Hailuo T2V-01"
   },
   {
-    path: "video_bench/object/sssa/pika/1.mp4",
+    path: "video_bench/object/ssma_fo/cogvideo/2.mp4",
     category: "object",
-    difficulty: "sssa",
-    model: "Pika 2.2"
-  },
-  {
-    path: "video_bench/object/mssa/cogvideo/9.mp4",
-    category: "object",
-    difficulty: "mssa",
+    difficulty: "ssma_fo",
     model: "Cogvideo 1.5"
   },
   {
-    path: "video_bench/object/mssa/sora/3.mp4",
-    category: "object",
-    difficulty: "mssa",
-    model: "Sora"
-  },
-  {
-    path: "video_bench/object/mssa/gen3/6.mp4",
-    category: "object",
-    difficulty: "mssa",
-    model: "Runway Gen3"
-  },
-  {
-    path: "video_bench/object/ssma_fo/veo/0.mp4",
-    category: "object",
-    difficulty: "ssma_fo",
-    model: "Veo 2.0"
-  },
-  {
-    path: "video_bench/object/ssma_fo/luma/8.mp4",
-    category: "object",
-    difficulty: "ssma_fo",
-    model: "Luma Ray2"
-  },
-  {
-    path: "video_bench/object/ssma_fo/kling/2.mp4",
-    category: "object",
-    difficulty: "ssma_fo",
-    model: "Kling 2.0"
-  },
-  {
-    path: "video_bench/object/ssma_sim/hailuo/5.mp4",
-    category: "object",
-    difficulty: "ssma_sim",
-    model: "Hailuo T2V-01"
-  },
-  {
-    path: "video_bench/object/ssma_sim/pika/7.mp4",
+    path: "video_bench/object/ssma_sim/pika/9.mp4",
     category: "object",
     difficulty: "ssma_sim",
     model: "Pika 2.2"
   },
   {
-    path: "video_bench/object/ssma_sim/cogvideo/4.mp4",
-    category: "object",
-    difficulty: "ssma_sim",
-    model: "Cogvideo 1.5"
-  },
-  {
-    path: "video_bench/object/ssma_ss/sora/9.mp4",
+    path: "video_bench/object/ssma_ss/sora/1.mp4",
     category: "object",
     difficulty: "ssma_ss",
     model: "Sora"
   },
   {
-    path: "video_bench/object/ssma_ss/gen3/1.mp4",
-    category: "object",
-    difficulty: "ssma_ss",
-    model: "Runway Gen3"
-  },
-  {
-    path: "video_bench/object/ssma_ss/veo/6.mp4",
-    category: "object",
-    difficulty: "ssma_ss",
-    model: "Veo 2.0"
-  },
-  {
-    path: "video_bench/object/msma_fo/luma/3.mp4",
+    path: "video_bench/object/msma_fo/luma/6.mp4",
     category: "object",
     difficulty: "msma_fo",
     model: "Luma Ray2"
   },
   {
-    path: "video_bench/object/msma_fo/kling/8.mp4",
-    category: "object",
-    difficulty: "msma_fo",
-    model: "Kling 2.0"
-  },
-  {
-    path: "video_bench/object/msma_fo/hailuo/0.mp4",
-    category: "object",
-    difficulty: "msma_fo",
-    model: "Hailuo T2V-01"
-  },
-  {
-    path: "video_bench/object/msma_sim/pika/5.mp4",
+    path: "video_bench/object/msma_sim/veo/3.mp4",
     category: "object",
     difficulty: "msma_sim",
-    model: "Pika 2.2"
-  },
-  {
-    path: "video_bench/object/msma_sim/cogvideo/2.mp4",
-    category: "object",
-    difficulty: "msma_sim",
-    model: "Cogvideo 1.5"
-  },
-  {
-    path: "video_bench/object/msma_sim/sora/7.mp4",
-    category: "object",
-    difficulty: "msma_sim",
-    model: "Sora"
-  },
-  {
-    path: "video_bench/object/msma_ss/gen3/4.mp4",
-    category: "object",
-    difficulty: "msma_ss",
-    model: "Runway Gen3"
-  },
-  {
-    path: "video_bench/object/msma_ss/veo/9.mp4",
-    category: "object",
-    difficulty: "msma_ss",
     model: "Veo 2.0"
-  },
-  {
-    path: "video_bench/object/msma_ss/luma/1.mp4",
-    category: "object",
-    difficulty: "msma_ss",
-    model: "Luma Ray2"
-  },
-  {
-    path: "video_bench/object/msma_ss/kling/6.mp4",
-    category: "object",
-    difficulty: "msma_ss",
-    model: "Kling 2.0"
   },
 
-  // === IMAGINARY 类别 (25个视频) ===
+  // === IMAGINARY 类别 (7个视频) ===
   {
     path: "video_bench/imaginary/sssa/hailuo/2.mp4",
     category: "imaginary",
@@ -1355,88 +1047,28 @@ const videoExamples = [
     model: "Hailuo T2V-01"
   },
   {
-    path: "video_bench/imaginary/sssa/kling/5.mp4",
+    path: "video_bench/imaginary/mssa/kling/5.mp4",
     category: "imaginary",
-    difficulty: "sssa",
+    difficulty: "mssa",
     model: "Kling 2.0"
   },
   {
-    path: "video_bench/imaginary/sssa/pika/8.mp4",
+    path: "video_bench/imaginary/ssma_fo/pika/8.mp4",
     category: "imaginary",
-    difficulty: "sssa",
+    difficulty: "ssma_fo",
     model: "Pika 2.2"
   },
   {
-    path: "video_bench/imaginary/mssa/cogvideo/0.mp4",
-    category: "imaginary",
-    difficulty: "mssa",
-    model: "Cogvideo 1.5"
-  },
-  {
-    path: "video_bench/imaginary/mssa/sora/7.mp4",
-    category: "imaginary",
-    difficulty: "mssa",
-    model: "Sora"
-  },
-  {
-    path: "video_bench/imaginary/mssa/veo/3.mp4",
-    category: "imaginary",
-    difficulty: "mssa",
-    model: "Veo 2.0"
-  },
-  {
-    path: "video_bench/imaginary/ssma_fo/gen3/4.mp4",
-    category: "imaginary",
-    difficulty: "ssma_fo",
-    model: "Runway Gen3"
-  },
-  {
-    path: "video_bench/imaginary/ssma_fo/luma/9.mp4",
-    category: "imaginary",
-    difficulty: "ssma_fo",
-    model: "Luma Ray2"
-  },
-  {
-    path: "video_bench/imaginary/ssma_fo/kling/1.mp4",
-    category: "imaginary",
-    difficulty: "ssma_fo",
-    model: "Kling 2.0"
-  },
-  {
-    path: "video_bench/imaginary/ssma_sim/hailuo/6.mp4",
-    category: "imaginary",
-    difficulty: "ssma_sim",
-    model: "Hailuo T2V-01"
-  },
-  {
-    path: "video_bench/imaginary/ssma_sim/pika/2.mp4",
-    category: "imaginary",
-    difficulty: "ssma_sim",
-    model: "Pika 2.2"
-  },
-  {
-    path: "video_bench/imaginary/ssma_sim/cogvideo/8.mp4",
+    path: "video_bench/imaginary/ssma_sim/cogvideo/0.mp4",
     category: "imaginary",
     difficulty: "ssma_sim",
     model: "Cogvideo 1.5"
   },
   {
-    path: "video_bench/imaginary/ssma_ss/sora/5.mp4",
+    path: "video_bench/imaginary/ssma_ss/sora/7.mp4",
     category: "imaginary",
     difficulty: "ssma_ss",
     model: "Sora"
-  },
-  {
-    path: "video_bench/imaginary/ssma_ss/veo/0.mp4",
-    category: "imaginary",
-    difficulty: "ssma_ss",
-    model: "Veo 2.0"
-  },
-  {
-    path: "video_bench/imaginary/ssma_ss/gen3/7.mp4",
-    category: "imaginary",
-    difficulty: "ssma_ss",
-    model: "Runway Gen3"
   },
   {
     path: "video_bench/imaginary/msma_fo/luma/4.mp4",
@@ -1445,58 +1077,10 @@ const videoExamples = [
     model: "Luma Ray2"
   },
   {
-    path: "video_bench/imaginary/msma_fo/kling/3.mp4",
-    category: "imaginary",
-    difficulty: "msma_fo",
-    model: "Kling 2.0"
-  },
-  {
-    path: "video_bench/imaginary/msma_fo/hailuo/9.mp4",
-    category: "imaginary",
-    difficulty: "msma_fo",
-    model: "Hailuo T2V-01"
-  },
-  {
-    path: "video_bench/imaginary/msma_sim/pika/1.mp4",
+    path: "video_bench/imaginary/msma_sim/veo/9.mp4",
     category: "imaginary",
     difficulty: "msma_sim",
-    model: "Pika 2.2"
-  },
-  {
-    path: "video_bench/imaginary/msma_sim/cogvideo/6.mp4",
-    category: "imaginary",
-    difficulty: "msma_sim",
-    model: "Cogvideo 1.5"
-  },
-  {
-    path: "video_bench/imaginary/msma_sim/sora/2.mp4",
-    category: "imaginary",
-    difficulty: "msma_sim",
-    model: "Sora"
-  },
-  {
-    path: "video_bench/imaginary/msma_ss/gen3/8.mp4",
-    category: "imaginary",
-    difficulty: "msma_ss",
-    model: "Runway Gen3"
-  },
-  {
-    path: "video_bench/imaginary/msma_ss/veo/5.mp4",
-    category: "imaginary",
-    difficulty: "msma_ss",
     model: "Veo 2.0"
-  },
-  {
-    path: "video_bench/imaginary/msma_ss/luma/0.mp4",
-    category: "imaginary",
-    difficulty: "msma_ss",
-    model: "Luma Ray2"
-  },
-  {
-    path: "video_bench/imaginary/msma_ss/kling/4.mp4",
-    category: "imaginary",
-    difficulty: "msma_ss",
-    model: "Kling 2.0"
   }
 ];
 
@@ -1575,6 +1159,18 @@ function filterVideos(filter) {
         card.style.display = 'block';
       }
       else if (filter === 'pika' && card.innerHTML.includes('Pika 2.2')) {
+        card.style.display = 'block';
+      }
+      else if (filter === 'sora' && card.innerHTML.includes('Sora')) {
+        card.style.display = 'block';
+      }
+      else if (filter === 'luma' && card.innerHTML.includes('Luma Ray2')) {
+        card.style.display = 'block';
+      }
+      else if (filter === 'veo' && card.innerHTML.includes('Veo 2.0')) {
+        card.style.display = 'block';
+      }
+      else if (filter === 'gen3' && card.innerHTML.includes('Runway Gen3')) {
         card.style.display = 'block';
       }
       else {
